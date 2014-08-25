@@ -1,0 +1,75 @@
+
+
+{% macro section_title(title, class, id) %}
+    <div class="{{ class|default("") }}" id="{{ id }}">
+        {{ title }}
+    </div>
+{% endmacro %}
+
+{% macro row_li(type, link, text, params, is_active, id) %}
+    <li class="{{ is_active ? "active" }}"  id="{{ id }}">
+        {% if type == "path" %}
+            <a href="{{ path(link, params) }}">{{ text|default("lien") }}</a>
+        {% elseif type == "url" %}
+            <a href="{{ url(link, params) }}">{{ text|default("lien") }}</a>
+        {% else %}
+            <a href="{{ link|default("#") }}">{{ text|default("lien") }}</a>
+        {% endif %}
+
+    </li>
+{% endmacro %}
+
+{% macro row_div(type, link, text, params, is_active, id) %}
+    <div class="{{ is_active ? "active" }}" id="{{ id }}">
+        {% if type == "path" %}
+            <a href="{{ path(link, params) }}">{{ text|default("lien") }}</a>
+        {% elseif type == "url" %}
+            <a href="{{ url(link, params) }}">{{ text|default("lien") }}</a>
+        {% else %}
+            <a href="{{ link|default("#") }}">{{ text|default("lien") }}</a>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro sidebar_section(args, active_link, id) %}
+    {% import _self as bar %}
+    <div class="{% if args.class is defined %}{{ args.class|default("") }}{% endif %}" id="{{ id }}">
+        {% if args.title is defined and args.title != "" %}
+            {{ bar.section_title(args.title, args.title_class|default(null), id ~ "_title") }}
+        {% endif %}
+
+    {% if args.rows is defined and args.rows is iterable and args.rows|length > 0 %}
+        {% set row_type = (args.row_type is defined) ? args.row_type : "ul" %}
+        {% if row_type == "ul" %}
+            <ul class="{% if args.list_class is defined %}{{ args.list_class|default("null") }}{% endif %}" id="{{ id ~ "_nav" }}">
+                {% for name, row in args.rows %}
+                    {% set is_active = (name == active_link) ? true : false %}
+                    {{ bar.row_li(row.type, row.link, row.text, row.params, is_active, id ~ "_row_" ~ loop.index0 ) }}
+                {% endfor %}
+            </ul>
+        {% elseif row_type == "div" %}
+            <div class="{% if args.list_class is defined %}{{ args.list_class|default("null") }}{% endif %}" id="{{ id ~ "_nav" }}">
+                {% for name, row in args.rows %}
+                    {% set is_active = (name == active_link) ? true : false %}
+                    {{ bar.row_div(row.type, row.link, row.text, row.params, is_active, id ~ "_row_" ~ loop.index0) }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endif %}
+    </div>
+{% endmacro %}
+
+
+{% macro allwrap(class, sections, active_link, id) %}
+    {% import _self as bar %}
+    {% if sections is defined and sections is iterable %}
+    {% set _id = (id != null) ? id : "sidenav" %}
+    <div class="{{ class|default("") }}" id="{{ _id }}">
+        {% for sec in sections %}
+            {% if sec is iterable %}
+                {{ bar.sidebar_section(sec, active_link, (_id ~ "_section_" ~ loop.index0 )) }}
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+{% endmacro %}

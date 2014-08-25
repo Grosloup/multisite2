@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="zpb.admin.news.post_cookie.class">ZPB\Admin\NewsBundle\Service\PostCookie</parameter>
+        <parameter key="zpb.admin.news.fronts_type.class">ZPB\Admin\NewsBundle\Form\Type\FrontsType</parameter>
+        <parameter key="zpb.form.type.post_types.class">ZPB\Admin\NewsBundle\Form\Type\PostTypesType</parameter>
+        <parameter key="zpb.constraint.post_types_validator.class">ZPB\Admin\NewsBundle\Validator\Constraints\PostTypesValidator</parameter>
+        <parameter key="zpb.admin.news.post_cookie.params" type="collection">
+            <parameter key="ppp">10</parameter>
+        </parameter>
+        <parameter type="collection" key="zpb.admin.news.post_cookie.cookie_params">
+            <parameter key="name" type="string">zpb_news</parameter>
+            <parameter key="expire">604800</parameter>
+            <parameter key="domain" type="string">admin.zooparc.com</parameter>
+        </parameter>
+        <parameter key="zpb.post.types" type="collection">
+            <parameter key="post">post</parameter>
+            <parameter key="flash_news">flash news</parameter>
+        </parameter>
+
+
+    </parameters>
+    <services>
+        <service id="zpb.admin.news.post_cookie" class="%zpb.admin.news.post_cookie.class%">
+            <argument type="service" id="request_stack" />
+            <argument type="string">%zpb.admin.news.post_cookie.params%</argument>
+            <argument type="string">%zpb.admin.news.post_cookie.cookie_params%</argument>
+        </service>
+        <service id="zpb.admin.news.fronts_type" class="%zpb.admin.news.fronts_type.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <tag name="form.type" alias="fronts_type"/>
+        </service>
+        <service id="zpb.form.type.post_types" class="%zpb.form.type.post_types.class%">
+            <argument type="string">%zpb.post.types%</argument>
+            <tag name="form.type" alias="posts_types_type"/>
+        </service>
+        <service id="zpb.constraint.post_types_validator" class="%zpb.constraint.post_types_validator.class%">
+            <argument type="service" id="service_container"/>
+            <tag name="validator.constraint_validator" alias="post_types_validator"/>
+        </service>
+    </services>
+</container>

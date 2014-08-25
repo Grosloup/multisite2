@@ -1,0 +1,64 @@
+.wrapper{
+  margin: 0;
+  @include clearfix;
+}
+
+.container{
+  //width: topx($gridContainerWidth);
+  margin: 0 auto;
+  @include clearfix;
+}
+
+.row{
+  margin: 0;
+  @include clearfix;
+}
+
+[class^="column-"], [class*=" column-"]{
+  float: left;
+  min-height: 1px;
+  padding: 0 topx($gridGutterWidth);
+  width: 100%;
+}
+@for $i from 1 through 11{
+  .push-#{$i}{
+    margin-right: 0;
+  }
+  .pull-#{$i}{
+    margin-left: 0;
+  }
+}
+
+
+@media only screen and (min-width: 768px) {
+  @for $i from 1 through $gridNumColumns{
+    .column-#{$i}{
+      //width: topx(($i / $gridNumColumns) * ($gridContainerWidth));
+      width: percentage($i / $gridNumColumns);
+    }
+  }
+  @for $i from 1 through 11{
+    .push-#{$i}{
+      margin-right: percentage($i / $gridNumColumns);
+    }
+  }
+  @for $i from 1 through 11{
+    .pull-#{$i}{
+      margin-left: percentage($i / $gridNumColumns);
+    }
+  }
+}
+
+
+
+@media only screen and (min-width: 1200px) {
+  .container{
+    width: 1200px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .container{
+    width: 1440px;
+  }
+}

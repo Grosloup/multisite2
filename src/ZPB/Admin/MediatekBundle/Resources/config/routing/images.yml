@@ -1,0 +1,28 @@
+zpb_admin_mediatek_image_list:
+    path:     /list/{page}
+    defaults: { _controller: ZPBAdminMediatekBundle:Images:list, page:1 }
+    methods: ["GET"]
+    requirements:
+        page: \d+
+
+zpb_admin_mediatek_image_upload:
+    path:     /upload
+    defaults: { _controller: ZPBAdminMediatekBundle:Images:upload }
+    methods: ["GET","POST"]
+
+zpb_admin_mediatek_image_delete:
+    path: /supprimer/{id}
+    defaults: { _controller: ZPBAdminMediatekBundle:Images:delete }
+    methods: ["GET"]
+    requirements:
+        id: \d+
+
+
+
+
+
+
+
+
+
+

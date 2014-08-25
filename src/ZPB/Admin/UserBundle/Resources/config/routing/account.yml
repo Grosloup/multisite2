@@ -1,0 +1,9 @@
+zpb_admin_user_my_account:
+    path: /mon-compte
+    defaults: { _controller: ZPBAdminUserBundle:Account:myAccount  }
+    methods: ["GET","POST"]
+
+zpb_admin_user_modify_password:
+    path: /mon-compte/modifier-mot-de-passe
+    defaults: { _controller: ZPBAdminUserBundle:Account:passwordChange }
+    methods: ["GET","POST"]

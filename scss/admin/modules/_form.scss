@@ -1,0 +1,120 @@
+input[type=text], input[type=password],  input[type=email], input[type=number], textarea, select{
+  width: 100%;
+  padding: topx($baseFontSize / 2);
+  border: none;
+  background-color: transparent;
+  @include box-shadow(rgba(0,0,0,0.15) 0 2px 0 );
+  font-size: topx($baseFontSize);
+  color: $baseFontColor;
+  @include inblock;
+  font-family: $baseFontFamily;
+  &:focus{
+    @include box-shadow(rgba($blue,0.9) 0 2px 0 );
+
+    //@include box-shadow(rgba(0,0,0,0.3) 0 1px 3px);
+  }
+}
+
+select{
+  font-size: $baseFontSize;
+  line-height: $lineHeight;
+  height: topx(floor($baseFontSize * $lineHeight) + $baseFontSize);
+  padding: topx($baseFontSize / 2)  topx($baseFontSize / 2);
+}
+
+textarea{
+  /*border:{
+    left: 1px solid rgba(0,0,0,0.05);
+    right: 1px solid rgba(0,0,0,0.05);
+  }*/
+  height: 82    px;
+  resize: vertical;
+}
+label{
+  display: block;
+  margin-bottom: topx($baseFontSize / 2);
+}
+
+.form__row{
+  margin: topx($baseFontSize / 2) 0;
+  position: relative;
+  @include clearfix;
+  @for $i from 1 through $gridNumColumns{
+    .form__column--#{$i}{
+      width: percentage($i / $gridNumColumns);
+      float: left;
+      padding: 0 topx($gridGutterWidth / 2);
+    }
+  }
+
+  &.has-errors{
+    .form__field{
+      @include box-shadow(rgba($red,0.9) 0 2px 0 );
+      color: $red;
+    }
+    .form_field_errors{
+      padding: topx($baseFontSize / 4);
+      font-size: topx($baseFontSize * 0.75);
+      color: $red;
+    }
+  }
+
+  .form__checkbox{
+
+    input[type='checkbox']{
+      @include inblock;
+
+
+      width: 10%;
+      & + label{
+        @include inblock;
+        margin: 0;
+        width: 85%;
+      }
+    }
+  }
+
+  .has-btn{
+    position: relative;
+    input[type=text]{
+      padding-right: 20px;
+    }
+    a.field__btn{
+      position: absolute;
+      display: block;
+      width: 15px;
+      height: 15px;
+      top: 11px;
+      right: 2px;
+      @include border-radius(15px);
+      background-color: $blue;
+      color: $white;
+      @include nakedLink;
+      font-size: 10px;
+      text-align: center;
+      line-height: 15px;
+      cursor: pointer;
+    }
+  }
+}
+.form__label{
+  display: none;
+}
+.form__field{
+  display: block;
+  @include placeholder{
+    color: lighten($baseFontColor, 50%);
+    font-weight: 700;
+  }
+
+
+  &.fixed-50{
+    width: 50px;
+    @include inblock;
+  }
+
+  &.fixed-75{
+    width: 75px;
+    @include inblock;
+  }
+ }

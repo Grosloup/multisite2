@@ -1,0 +1,95 @@
+{% extends "ZPBAdminCommonBundle:Layouts:master.html.twig" %}
+{%  set active_main_menu = "news" %}
+
+{% block main %}
+
+        <div class="container">
+            <div class="row">
+                <div class="column-12">
+                    <div class="page-header">
+                        <h1>Actualités <small>Tous les articles</small></h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column-2 push-10">
+                    articles par page :
+                    <select name="postsperpage" id="postsperpage" class="form__field fixed-75">
+                        <option value="5"{% if postsPerPage == 5 %} selected="selected"{% endif %}>5</option>
+                        <option value="10"{% if postsPerPage == 10 %} selected="selected"{% endif %}>10</option>
+                        <option value="20"{% if postsPerPage == 20 %} selected="selected"{% endif %}>20</option>
+                        <option value="50"{% if postsPerPage == 50 %} selected="selected"{% endif %}>50</option>
+                    </select>
+                </div>
+
+
+            </div>
+            <div class="hr"></div>
+            <div class="row">
+
+                <div class="column-12">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Titre</th>
+                            <th>Date de publication</th>
+                            <th>Catégory</th>
+                            <th>Tags</th>
+                            <th>Cibles</th>
+                            <th>Edition</th>
+                            <th>Corbeille</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if posts|length<1 %}
+                            <tr>
+                                <td colspan="9"></td>
+                            </tr>
+                        {% else %}
+                            {%  for post in posts %}
+                                <tr>
+                                    <td>{{ post.id }}</td>
+                                    <td>{{ post.title }}</td>
+                                    <td>{{ post.publishedAt|date("d/m/y") }}</td>
+                                    <td>{%  if post.category != null %}{{ post.category.name }}{% else %}pas de catégorie{% endif %}</td>
+                                    <td>{% for tag in post.tags %}{{ tag.name }}{% if loop.last != true %},<br/>{% endif %}{% endfor %}</td>
+                                    <td>
+                                        <ul>
+                                            {% for t in post.targets %}
+                                                <li>
+                                                    {{ t.name }} {%  if t.frontPostId == post.longId %}(à la une){% endif %}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                    <td><a class="btn btn--default" href="{{ path("zpb_admin_news_posts_edit", {id: post.id}) }}"><span class="icon-054"></span></a></td>
+                                    <td><a class="btn btn--default" href="{{ path("zpb_admin_news_posts_drop", {id: post.id}) }}"><span class="icon-030"></span></a></td>
+                                    <td></td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
+{% block footScripts %}
+    {{ parent() }}
+    <script>
+        $(function(){
+            var selPostsPerPage = $("#postsperpage");
+            selPostsPerPage.on("change", function(e){
+                e.preventDefault();
+                var value = $(this).find("option:selected").val();
+                window.location = "{{ path("zpb_admin_nes_post_per_page") }}" + "?posts_per_page=" + value;
+            });
+        });
+    </script>
+
+{% endblock %}
+
+

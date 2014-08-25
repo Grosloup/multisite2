@@ -1,0 +1,23 @@
+security:
+    encoders:
+        ZPB\Admin\UserBundle\Entity\AdminUser:
+            algorithm: sha512
+            encode_as_base64: true
+            iterations: 7000
+
+    providers:
+        admin_provider:
+            entity:
+                class: ZPBAdminUserBundle:AdminUser
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+        ROLE_SUPERADMIN: [ROLE_USER, ROLE_ADMIN]
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        default:
+            anonymous: ~

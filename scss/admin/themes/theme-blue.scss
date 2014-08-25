@@ -1,0 +1,25 @@
+@import "compass";
+@import "../base/vars";
+@import "../base/functions";
+@import "../base/mixins";
+
+body.theme-blue{
+  .topnav__bar{
+    background-color: $blue2 ;
+    color: $baseFontColor;
+
+  }
+  /*.topnav__bar__navs{
+    background-color: transparent ;
+    color: $baseFontColor;
+  }*/
+}
+
+@media only screen and (max-width: 1000px){
+  .topnav__bar{
+
+  }
+  .topnav__bar__navs{
+    //background-color: #ccc;
+  }
+}

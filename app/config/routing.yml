@@ -1,0 +1,32 @@
+zpb_admin_mediatek:
+    resource: "@ZPBAdminMediatekBundle/Resources/config/routing.yml"
+    host: "{subdomain}admin.zooparc.com"
+    defaults: { subdomain: %default_subdommain% }
+    requirements: { subdomain: "www\.|new\.|" }
+    prefix:   /
+    schemes:  [https]
+
+zpb_admin_news:
+    resource: "@ZPBAdminNewsBundle/Resources/config/routing.yml"
+    host: "{subdomain}admin.zooparc.com"
+    defaults: { subdomain: %default_subdommain% }
+    requirements: { subdomain: "www\.|new\.|" }
+    prefix:   /
+    schemes:  [https]
+
+zpb_admin_user:
+    resource: "@ZPBAdminUserBundle/Resources/config/routing.yml"
+    host: "{subdomain}admin.zooparc.com"
+    defaults: { subdomain: %default_subdommain% }
+    requirements: { subdomain: "www\.|new\.|" }
+    prefix:   /
+    schemes:  [https]
+
+zpb_admin_common:
+    resource: "@ZPBAdminCommonBundle/Resources/config/routing.yml"
+    host: "{subdomain}admin.zooparc.com"
+    defaults: { subdomain: %default_subdommain% }
+    requirements: { subdomain: "www\.|new\.|" }
+    prefix:   /
+    schemes:  [https]
+

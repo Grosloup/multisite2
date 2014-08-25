@@ -1,0 +1,3 @@
+zpb_admin_mediatek_image_routes:
+    prefix: /mediatheque/images
+    resource: "@ZPBAdminMediatekBundle/Resources/config/routing/images.yml"

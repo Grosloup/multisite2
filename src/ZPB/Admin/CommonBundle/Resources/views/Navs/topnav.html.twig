@@ -1,0 +1,46 @@
+
+
+
+
+<div class=" topnav__bar fixed--top ">
+    <div id="hamburgr" class="hamburgr"></div>
+    <a class="topnav__bar__logo" href="{{ path("zpb_admin_common_homepage") }}">Admin</a>
+    <div class="topnav__bar__navs">
+        <div class="topnav__bar__nav">
+            <ul>
+                <li class="drop-down{% if active_main_menu == "general" %} active{% endif %}"><a href="#">Générale</a>
+                    <ul>
+                        <li><a href="{{ path("zpb_admin_user_list") }}"> Utilisateurs</a></li>
+                        <li><a href="#"> Médiathèque</a></li>
+                    </ul>
+                </li>
+                <li class="drop-down{% if active_main_menu == "news" %} active{% endif %}" ><a href="">Actualités</a>
+                    <ul>
+                        <li><a href="{{ path("zpb_admin_news_posts_write") }}"><span class="icon-071"></span> Ecrire</a></li>
+                        <li><a href="{{ path("zpb_admin_news_posts_list") }}"><span class="icon-047"></span> Les articles</a></li>
+                        <li><a href="{{ path("zpb_admin_news_posts_list_draft") }}"><span class="icon-0327"></span> Les brouillons</a></li>
+                        <li><a href=""><span class="icon-0134"></span> Les archives</a></li>
+                        <li><a href=""><span class="icon-030"></span> La corbeille</a></li>
+                        <li><a href=""><span class="icon-020"></span> Les catégories</a></li>
+                        <li><a href=""><span class="icon-0230"></span> Les mots-clés</a></li>
+                    </ul>
+                </li>
+                <li><a href="">ZooParc</a></li>
+                <li><a href="">Parrainages</a></li>
+                <li><a href="">newlink04</a></li>
+            </ul>
+        </div>
+        <div class="topnav__bar__nav nav--right">
+            <ul>
+                <li><a href="" title="Alertes"><i class="fa fa-bullhorn"></i></a></li>
+                <li><a href="" title="Messages"><span class="icon-019"></span></a></li>
+                <li><a href="{{ path("zpb_admin_user_my_account") }}" title="Mon compte"><span class="icon-0296"></span></a></li>
+                <li><a href="{{ path("zpb_admin_user_logout") }}" title="Déconnexion"><span class="icon-086"></span></a></li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+
+

@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+
+    <parameters>
+        <parameter key="zpb.admin.user.entity.admin_user_listener.class">ZPB\Admin\UserBundle\Listener\Entities\AdminUserListener</parameter>
+        <parameter key="zpb.form.type.civility.class">ZPB\Admin\UserBundle\Form\Type\CivilityType</parameter>
+        <parameter key="zpb.constraint.civility_validator.class">ZPB\Admin\UserBundle\Validator\Constraints\CivilityValidator</parameter>
+        <parameter key="zpb.constraint.password_validator.class">ZPB\Admin\UserBundle\Validator\Constraints\PassWordValidator</parameter>
+
+        <parameter key="zpb.civility" type="collection">
+            <parameter key="Mm">Madame</parameter>
+            <parameter key="Mlle">Mademoiselle</parameter>
+            <parameter key="Mr">Monsieur</parameter>
+        </parameter>
+
+        <parameter type="collection" key="zpb.password_validator.params">
+            <parameter key="minlen">8</parameter>
+            <parameter key="haslower">true</parameter>
+            <parameter key="hasupper">true</parameter>
+            <parameter key="hasnum">true</parameter>
+        </parameter>
+
+    </parameters>
+
+    <services>
+        <service id="zpb.admin.user.entity.admin_user_listener" class="%zpb.admin.user.entity.admin_user_listener.class%">
+            <argument type="service" id="security.encoder_factory" />
+            <tag name="doctrine.event_listener" event="prePersist"/>
+            <tag name="doctrine.event_listener" event="preUpdate"/>
+        </service>
+
+        <service id="zpb.constraint.password_validator" class="%zpb.constraint.password_validator.class%">
+            <argument type="service" id="service_container"/>
+            <tag name="validator.constraint_validator" alias="pass_word_validator"/>
+        </service>
+
+        <service id="zpb.form.type.civility" class="%zpb.form.type.civility.class%">
+            <argument type="string">%zpb.civility%</argument>
+            <tag name="form.type" alias="civility_type"/>
+        </service>
+
+        <service id="zpb.constraint.civility_validator" class="%zpb.constraint.civility_validator.class%">
+            <argument type="service" id="service_container"/>
+            <tag name="validator.constraint_validator" alias="civility_validator"/>
+        </service>
+
+
+
+    </services>
+
+</container>

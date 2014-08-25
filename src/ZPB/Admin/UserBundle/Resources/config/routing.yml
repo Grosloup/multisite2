@@ -1,0 +1,11 @@
+zpb_admin_user_routes:
+    prefix:     /utilisateurs
+    resource: "@ZPBAdminUserBundle/Resources/config/routing/users.yml"
+
+zpb_admin_auth_routes:
+    prefix: /auth
+    resource: "@ZPBAdminUserBundle/Resources/config/routing/login.yml"
+
+zpb_admin_account_routes:
+    prefix: /comptes
+    resource: "@ZPBAdminUserBundle/Resources/config/routing/account.yml"

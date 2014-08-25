@@ -1,0 +1,120 @@
+.site-content{
+  padding-top: 60px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .extra-wrapper{
+    height: 100%;
+    overflow: hidden;
+  }
+  .pusher{
+    height: 100%;
+    @include transform(translateX(0));
+    @include transition-duration(0.3s);
+    @include box-shadow(rgba(0,0,0,0.15) -4px 0 0 );
+    position: relative;
+  }
+  .hamburgr{
+    float: left;
+    height: topx($topNavBarHeight);
+    position: relative;
+    //background-color: rgba(255,255,255,0.5);
+    width: topx($topNavBarHeight);
+    cursor: pointer;
+    margin-left: topx($gridGutterWidth * -1);
+    &:after{
+      content: "";
+      width: topx($baseFontSize);
+      //height: topx($baseFontSize);
+      top: topx( ($topNavBarHeight - $baseFontSize) /2 );
+      left: topx( ($topNavBarHeight  - $baseFontSize) /2 );
+      position: absolute;
+      display: block;
+      @include box-shadow(rgba(255,255,255,0.8) 0 2px 0 1px, rgba(255,255,255,0.8) 0 topx($baseFontSize / 2) 0 1px, rgba(255,255,255,0.8) 0 topx($baseFontSize - 2) 0 1px);
+    }
+  }
+
+
+  .topnav__bar{
+    &.fixed--top{
+      position: static;
+    }
+  }
+
+  .site-content{
+    padding-top: 10px;
+    position: absolute;
+    top: 54px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .topnav__bar__navs{
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 250px;
+    z-index: 1000;
+    @include transform(translateX(-250px));
+    @include box-shadow(rgba(0,0,0,0.15) -4px 0 0 inset);
+    overflow-y: scroll;
+    background-color: #ccc;
+  }
+
+  .topnav__bar__nav{
+    float: none;
+    padding: 0 4px 0 0 ;
+    ul{
+      li{
+        float: none;
+        border-bottom: 1px solid #ddd;
+        a{
+          display: block;
+          padding: 0;
+          height: 50px;
+          line-height: 50px;
+        }
+
+        &.drop-down{
+          border-bottom: none;
+          &>a{
+            border-bottom: 1px solid #ddd;
+          }
+          ul{
+            position: static;
+            &.droppable{
+              background-color: transparent;
+              @include box-shadow(none);
+              li{
+                a{
+                  line-height: 50px;
+                  padding: 0;
+                  height: 50px;
+                }
+                &:last-child{
+                  border-bottom: 1px solid #ddd;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    &.nav--right{
+      float: none;
+      padding: 0 4px 0 0 ;
+
+    }
+  }
+
+  .display-sidebar{
+    .pusher{
+      @include transform(translateX(250px));
+    }
+  }
+}

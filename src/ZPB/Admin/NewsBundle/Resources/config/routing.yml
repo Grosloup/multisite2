@@ -1,0 +1,7 @@
+zpb_admin_news_homepage:
+    path:     /actualites
+    defaults: { _controller: ZPBAdminNewsBundle:Default:index }
+
+zpb_admin_news_posts_routes:
+    prefix: /actualites/articles
+    resource: "@ZPBAdminNewsBundle/Resources/config/routing/post.yml"

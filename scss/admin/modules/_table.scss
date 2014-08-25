@@ -1,0 +1,46 @@
+table.table{
+  width: 100%;
+  border-collapse: collapse;
+  margin: topx($baseFontSize) 0;
+  @include box-shadow(rgba(0,0,0,0.15) 0 2px 0, rgba(0,0,0,0.15) 0 2px 4px );
+  td, th{
+    padding: topx($baseFontSize / 2);
+  }
+  thead tr{
+    @include box-shadow(rgba(0,0,0,0.15) 0 2px 0, rgba(0,0,0,0.15) 0 2px 4px );
+  }
+  thead tr th, tr th, tbody tr th{
+
+    vertical-align: bottom;
+    font-weight: bold;
+  }
+  tbody tr td{
+    @include box-shadow(rgba(0,0,0,0.10) 0 1px 0 );
+    vertical-align: top;
+  }
+
+  &.table-hover{
+    tbody tr:hover td{
+      background-color: $smouthHoverColor;
+    }
+  }
+
+  &.table-striped{
+    tbody tr:nth-child(2n+1) td{
+      background-color: rgba(0,0,0,0.05);
+    }
+  }
+
+  tr.success{
+    background-color: $green;
+  }
+  tr.alert{
+    background-color: $red;
+  }
+  tr.info{
+    background-color: $blue3;
+  }
+  tr.warning{
+    background-color: $orange;
+  }
+}

@@ -1,0 +1,22 @@
+{% import "ZPBAdminUserBundle:Macros:sidebar.html.twig" as sidebar %}
+
+{{ sidebar.allwrap(
+        "sidenav__left",
+        {
+            sec1:{
+                    "class":"sidenav__section",
+                    "title":"",
+                    "title_class":"sidenav__section__title",
+                    "list_class": "sidenav__nav",
+                    "row_type": "ul",
+                    "rows": {
+                        "list": {type: "path", link: "zpb_admin_user_list", text: "Liste des utilisateurs", params:{} },
+                        "register": {type: "path", link: "zpb_admin_user_register", text: "Nouvel utilisateur", params:{} }
+                    }
+            }
+        },
+        active_mainsidebar
+    )
+}}
+
+

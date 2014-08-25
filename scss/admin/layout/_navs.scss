@@ -1,0 +1,207 @@
+.topnav__bar{
+  line-height: topx($topNavBarHeight);
+  background-color: $topNavBarBgColor;
+  color: $topNavBarColor;
+  @include clearfix;
+  @if $topNavBarHeight>0 {
+    height: topx($topNavBarHeight + $topNavBarBorderBottomWidth);
+    padding-bottom: topx($topNavBarBorderBottomWidth);
+    @include box-shadow($topNavBarBorderBottom);
+  } @else {
+    height: topx($topNavBarHeight);
+  }
+  &.fixed--top{
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding-left: topx($gridGutterWidth);
+    padding-right: topx($gridGutterWidth);
+    @if $topNavBarHeight>0 {
+      @include box-shadow($topNavBarBorderBottom, $topNavBarFixedTopShadow);
+    } @else {
+      @include box-shadow($topNavBarFixedTopShadow);
+    }
+  }
+
+  &.bluebar{
+    background-color: $blue2 ;
+    color: $baseFontColor;
+    /*.topnav__bar__navs{
+      background-color: $blue2 ;
+      color: $baseFontColor;
+    }*/
+  }
+  &.greenbar{
+    background-color: $green ;
+    color: $baseFontColor;
+    /*.topnav__bar__navs{
+      background-color: $green ;
+      color: $baseFontColor;
+    }*/
+  }
+}
+.topnav__bar__logo{
+  @include nakedLink;
+  font-weight: 700;
+  float: left;
+  font-size: topx($baseFontSize * 1.4);
+}
+.topnav__bar__navs{
+  height: 100%;
+  @include clearfix;
+  background-color: transparent;
+}
+.topnav__bar__nav{
+  float: left;
+  @include clearfix;
+  padding-left: topx($gridGutterWidth);
+  padding-right: 0;
+  ul{
+    @include clearfix;
+    height: 100%;
+    li{
+      float: left;
+      display: block;
+      height: 100%;
+      position: relative;
+      &.active{
+        a{
+          background-color: rgba(255,255,255,0.4);
+        }
+      }
+      a{
+        display: block;
+        height: 100%;
+        @include nakedLink;
+        padding: 0 topx($gridGutterWidth);
+        &:hover{
+          background-color: rgba(255,255,255,0.4);
+        }
+
+      }
+      &.drop-down{
+        &>a{
+          padding-right: 20px;
+          position: relative;
+          &.close{
+            &:after{
+              content: "";
+              display: block;
+              position: absolute;
+              top:20px;
+              right: 5px;
+              border:{
+                left: 6px solid transparent;
+                right: 6px solid transparent;
+                top: 9px solid rgba($black, 0.8);
+              }
+            }
+          }
+
+          &.open{
+            &:after{
+              content: "";
+              display: block;
+              position: absolute;
+              top:20px;
+              right: 5px;
+              border:{
+                left: 6px solid transparent;
+                right: 6px solid transparent;
+                bottom: 9px solid rgba($black, 0.8);
+              }
+            }
+          }
+
+
+        }
+
+
+        &:hover > ul{
+          display: block;
+        }
+        ul{
+          position: absolute;
+          display: none;
+          height: auto;
+          li{
+            float: none;
+          }
+          &.droppable{
+            &.show{
+              display: block;
+            }
+            &.hide{
+              display: none;
+            }
+            background-color: $white;
+            @include box-shadow(rgba(0,0,0,0.3) 0 1px 3px);
+            li{
+              border-bottom: 1px solid #ddd;
+
+              &:last-child{
+                border-bottom: none;
+              }
+              a{
+                line-height: $lineHeight;
+                padding: topx($baseFontSize / 2);
+                min-width: 150px;
+                &:hover{
+                  background-color: rgba(0,0,0,0.1);
+
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.nav--right{
+    float: right;
+    padding-left: 0;
+    padding-right: topx($gridGutterWidth);
+  }
+}
+
+.sidenav__left{
+
+}
+.sidenav__section{
+
+}
+.sidenav__section__title{
+  font-size: topx($baseFontSize * 1.25);
+  font-weight: 700;
+  line-height: topx($baseFontSize * 2.5);
+  height: topx($baseFontSize * 2.5);
+  padding: 0 topx($baseFontSize / 2);
+  @include box-shadow($thinline);
+}
+
+.sidenav__nav{
+
+
+    li,div{
+      &.active{
+        a{
+          background-color: $smouthHoverColor;
+        }
+      }
+      a{
+        display: block;
+        @include nakedLink;
+        line-height: topx($baseFontSize * 2.5);
+        height: topx($baseFontSize * 2.5);
+        padding: 0 topx($baseFontSize / 2);
+        &:hover{
+          background-color: $smouthHoverColor;
+        }
+      }
+    }
+
+}

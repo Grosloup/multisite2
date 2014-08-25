@@ -1,0 +1,73 @@
+{% set active_main_menu = active_main_menu|default("") %}
+{% set theme = "none" %}
+{% if active_main_menu == "news" %} {% set theme = "blue" %}{% endif %}
+
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if block("title") %}{{ block("title") }}{% else %}Accueil{% endif %} | Admin | ZooParc</title>
+    {% block headLinks %}
+        <link rel="stylesheet" href="/css/font-awesome.css"/>
+        <link rel="stylesheet" href="/css/capicon.css"/>
+        <link rel="stylesheet" href="/css/admin/master.css"/>
+    {% if theme != "none" %}
+        <link rel="stylesheet" href="/css/admin/themes/theme-{{ theme }}.css"/>
+    {% endif %}
+    {% endblock %}
+</head>
+<body {% if theme != "none" %}class="theme-{{ theme }}" {% endif %}>
+<div class="extra-wrapper">
+    <div class="pusher">
+
+        {% block topnav %}
+            {{ render_esi(controller("ZPBAdminCommonBundle:Navs:topnav", {activeMainMenu: active_main_menu})) }}
+        {% endblock %}
+
+        <div class="wrapper site-content">
+            {% block main %}{% endblock %}
+        </div>
+
+    </div>
+</div>
+
+
+
+{% block footScripts %}
+    <script src="/js/vendor/jquery-2.1.1.min.js"></script>
+    <script>
+        $(function(){
+            $("#hamburgr").on("click", function(e){
+                e.preventDefault();
+                $("body").toggleClass("display-sidebar");
+            });
+
+            var $dropDown = $(".drop-down"), $dropDownA = $(".drop-down>a");
+
+            $dropDown.find("ul").addClass("droppable hide");
+            $dropDownA.addClass("close");
+            $dropDownA.on("click", function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                if(!$(this).hasClass("open")){
+                    $dropDownA.removeClass("open").addClass("close");
+                    $dropDownA.next(".droppable").removeClass("show").addClass("hide");
+                }
+                $(this).toggleClass("open").toggleClass("close");
+                $(this).next(".droppable").toggleClass("hide").toggleClass("show");
+            });
+
+            $(document).on("click", $(".drop-down>a.open"), function(e){
+                var $open =  $(".drop-down>a.open");
+                $open.next(".droppable").toggleClass("hide").toggleClass("show");
+                $open.toggleClass("open").toggleClass("close");
+            });
+        });
+    </script>
+{% endblock %}
+</body>
+</html>

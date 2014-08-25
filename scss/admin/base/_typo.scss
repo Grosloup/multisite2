@@ -1,0 +1,49 @@
+@import url(//fonts.googleapis.com/css?family=Roboto:400,700);
+
+body{
+  font-family: $baseFontFamily;
+  font-size: topx($baseFontSize);
+  line-height: $lineHeight;
+  color: $baseFontColor;
+  background-color: $baseBgColor;
+}
+
+h1,h2,h3,h4,h5,h6{
+  font-weight: 700;
+}
+h1{
+  font-size: topx($baseFontSize * 3);
+}
+h2{
+  font-size: topx($baseFontSize *2.5);
+}
+h3{
+  font-size: topx($baseFontSize *2);
+}
+h4{
+  font-size: topx($baseFontSize *1.5);
+}
+h5{
+  font-size: topx($baseFontSize *1.2);
+}
+h6{
+  font-size: topx($baseFontSize *1.2);
+  font-style: italic;
+}
+
+.hr{
+  border: none;
+  border-bottom: 1px solid #eee;
+  height: 1px;
+  margin: topx($baseFontSize) topx($gridGutterWidth);
+  @include clearfix;
+}
+.page-header{
+  @include box-shadow(rgba(0,0,0,0.1) 0 1px 0);
+  padding-bottom: topx($baseFontSize);
+  margin-bottom: topx($baseFontSize);
+  small{
+    font-size: 75%;
+    color: lighten($baseFontColor, 30);
+  }
+}

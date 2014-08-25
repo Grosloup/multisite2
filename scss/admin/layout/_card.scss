@@ -1,0 +1,14 @@
+.card{
+  width: 100%;
+  @include box-shadow($shadowLevel1);
+  padding: topx($baseFontSize);
+  margin-bottom: topx($baseFontSize);
+}
+
+.card__header{
+
+  font-weight: 700;
+  font-size: topx($baseFontSize * 1.25);
+  color: $baseFontColor;
+  padding-bottom: topx($baseFontSize);
+}

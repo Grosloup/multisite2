@@ -1,0 +1,35 @@
+//https://www.google.com/design/spec/style/color.html#color-ui-color-palette
+$blue: #29b6f6; //primary
+$blue2: #03a9f4; // navbar
+$blue3: #b3e5fc; // info
+$green: #72d572; // success
+$grey: #f6f6f6;
+$red: #e84e40; // alert danger
+$orange: #ffa726; //warning
+$white: #f9f9f9;
+$black: #333;
+
+$baseFontSize: 16;
+$baseFontColor: #555;
+$baseBgColor: $white;
+$baseFontFamily: 'Roboto',Arial, Helvetica, sans-serif;
+$lineHeight: 1.43;
+
+$gridNumColumns: 12;
+$gridGutterWidth: $baseFontSize / 2;
+
+$gridContainerWidth: 750;
+
+$thinline: rgba(0,0,0,0.1) 0 1px 0;
+$smouthHoverColor: rgba(0,0,0,0.05);
+$shadowLevel1:rgba(0,0,0,0.3) 0 1px 3px;
+
+
+$navBarRatio: 3.125;
+$topNavBarBgColor: #e2e2e2;
+$topNavBarColor: $baseFontColor;
+$topNavBarHeight: $baseFontSize * $navBarRatio;
+$topNavBarBorderBottomWidth: 4;
+$topNavBarBorderBottom: rgba(0,0,0,0.15) 0 ($topNavBarBorderBottomWidth * -1px) 0 inset;
+
+$topNavBarFixedTopShadow: rgba(0,0,0,0.15) 0 2px 3px;

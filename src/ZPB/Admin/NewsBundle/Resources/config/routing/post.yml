@@ -1,0 +1,44 @@
+zpb_admin_news_posts_list:
+    path: /{page}
+    defaults: { _controller: ZPBAdminNewsBundle:Post:list, page: 1 }
+    methods: ["GET"]
+    requirements:
+        page: \d+
+
+zpb_admin_news_posts_list_draft:
+    path: /brouillons/{page}
+    defaults: { _controller: ZPBAdminNewsBundle:Post:listDraft, page: 1 }
+    methods: ["GET"]
+    requirements:
+        page: \d+
+
+zpb_admin_nes_post_per_page:
+    path: /modifier/articles-par-page
+    defaults: { _controller: ZPBAdminNewsBundle:Post:changePostsPerPage }
+    methods: ["GET"]
+
+
+zpb_admin_news_posts_write:
+    path: /ecrire
+    defaults: { _controller: ZPBAdminNewsBundle:Post:write }
+    methods: ["GET","POST"]
+
+zpb_admin_news_posts_edit:
+    path: /edition/{id}
+    defaults: { _controller: ZPBAdminNewsBundle:Post:edit }
+    methods: ["GET","POST"]
+    requirements:
+        id: \d+
+zpb_admin_news_posts_drop:
+    path: /a-la-corbeille/{id}
+    defaults: { _controller: ZPBAdminNewsBundle:Post:drop }
+    methods: ["GET"]
+    requirements:
+        id: \d+
+
+zpb_admin_news_posts_delete:
+    path: /supprimer/{id}
+    defaults: { _controller: ZPBAdminNewsBundle:Post:delete }
+    methods: ["GET"]
+    requirements:
+        id: \d+

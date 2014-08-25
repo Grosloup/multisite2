@@ -1,0 +1,133 @@
+{% extends "ZPBAdminCommonBundle:Layouts:master.html.twig" %}
+{%  set active_main_menu = "news" %}
+{% block main %}
+
+        <div class="container">
+            <div class="row">
+                <div class="column-12">
+                    <div class="page-header">
+                        <h1>Actualités <small>Ecrire un article</small></h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column-3 push-9">
+                    <div class="card">
+                        <div class="card__header">Status de l'article</div>
+                        <div class="card__body">
+                            {{ postStatus }}
+                        </div>
+                    </div>
+                </div>
+                {{ form_start(form) }}
+                <div class="column-6">
+
+                {{ form_errors(form) }}
+                    <div class="form__row {% if form.title.vars.errors|length > 0 %}has-errors{% endif %}">
+                        {{ form_label(form.title, null, {"label_attr":{"class":"form__label"}} ) }}
+                        {{ form_widget(form.title, {"attr":{"class":"form__field", "placeholder":form.title.vars.label}}) }}
+                        <div class="form_field_errors">
+                            {{ form_errors(form.title) }}
+                        </div>
+
+                    </div>
+
+                    <div class="form__row {% if form.body.vars.errors|length > 0 %}has-errors{% endif %}">
+                        {{ form_label(form.body, null, {"label_attr":{"class":"form__label"}} ) }}
+                        {{ form_widget(form.body, {"attr":{"class":"form__field", "placeholder":form.body.vars.label, 'data-editor':'html'}}) }}
+                        <div class="form__field__errors">
+                            {{ form_errors(form.body) }}
+                        </div>
+                    </div>
+
+                    <div class="form__row {% if form.excerpt.vars.errors|length > 0 %}has-errors{% endif %}">
+                        {{ form_label(form.excerpt, null, {"label_attr":{"class":"form__label"}} ) }}
+                        {{ form_widget(form.excerpt, {"attr":{"class":"form__field", "placeholder":form.excerpt.vars.label, 'data-editor':'html'}}) }}
+                        <div class="form__field__errors">
+                            {{ form_errors(form.excerpt) }}
+                        </div>
+                    </div>
+                    <div class="form__row">
+                        {% if post.isDraft == true %}
+                            {{ form_widget(form.save_draft, {"attr":{class:"flat-btn btn--default"}}) }}
+                            {{ form_widget(form.save_publish, {"attr":{class:"flat-btn btn--default"}}) }}
+                            <div style="display: none;">
+                                {{ form_widget(form.save_update, {"attr":{class:"flat-btn btn--default", disabled:"disabled"}}) }}
+                            </div>
+                        {% endif %}
+                        {% if post.isPublished == true %}
+                            {{ form_widget(form.save_update, {"attr":{class:"flat-btn btn--default"}}) }}
+                            <div style="display: none;">
+                                {{ form_widget(form.save_publish, {"attr":{class:"flat-btn btn--default", disabled:"disabled"}}) }}
+                                {{ form_widget(form.save_draft, {"attr":{class:"flat-btn btn--default", disabled:"disabled"}}) }}
+                            </div>
+                        {% endif %}
+                        {%  if post.isArchive == true %}
+                            {{ form_widget(form.save_update, {"attr":{class:"flat-btn btn--default"}}) }}
+                            {{ form_widget(form.save_publish, {"attr":{class:"flat-btn btn--default"}}) }}
+                            <div style="display: none;">
+                                {{ form_widget(form.save_draft, {"attr":{class:"flat-btn btn--default", disabled:"disabled"}}) }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="column-3">
+
+                    <div class="form__row {% if form.type.vars.errors|length > 0 %}has-errors{% endif %}">
+                        {{ form_label(form.type) }}
+                        {{ form_widget(form.type, {attr: {class: "form__field"}}) }}
+                        <div class="form__field__errors">
+                            {{ form_errors(form.type) }}
+                        </div>
+                    </div>
+                    <div class="form__row {% if form.category.vars.errors|length > 0 %}has-errors{% endif %}">
+                        {{ form_label(form.category) }}
+                        {{ form_widget(form.category, {attr: {class: "form__field"}}) }}
+                        <div class="form__field__errors">
+                            {{ form_errors(form.category) }}
+                        </div>
+                    </div>
+                    <div class="form__row {% if form.targets.vars.errors|length > 0 %}has-errors{% endif %}">
+                        {{ form_label(form.targets) }}
+                        {{ form_widget(form.targets, {attr: {class: "form__checkbox"}}) }}
+                        <div class="form__field__errors">
+                            {{ form_errors(form.targets) }}
+                        </div>
+                    </div>
+
+                    <div class="form__row {% if form.tags.vars.errors|length > 0 %}has-errors{% endif %}">
+                        {{ form_label(form.fronts) }}
+                        {{ form_widget(form.fronts, {attr: {class: "form__checkbox"}}) }}
+                        <div class="form__field__errors">
+                            {{ form_errors(form.fronts) }}
+                        </div>
+                    </div>
+
+                    <div class="form__row {% if form.tags.vars.errors|length > 0 %}has-errors{% endif %}">
+                        {{ form_label(form.tags) }}
+                        {{ form_widget(form.tags) }}
+                        <div class="form__field__errors">
+                            {{ form_errors(form.tags) }}
+                        </div>
+                    </div>
+                    <div id="tags"></div>
+                </div>
+                <div class="column-3"></div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+
+{% endblock %}
+
+{% block footScripts %}
+    {{ parent() }}
+    <script>
+        var catId = {% if post.category != null %}{{ post.category.id }}{% else %}null{% endif %};
+
+    </script>
+    <script src="/js/vendor/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/vendor/ace/ext-emmet.js"></script>
+    <script src="/js/vendor/emmet.js"></script>
+    <script src="/js/admin/news_write_ace.js"></script>
+    <script src="/js/admin/news_tags.js"></script>
+{% endblock %}

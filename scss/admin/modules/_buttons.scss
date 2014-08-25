@@ -1,0 +1,58 @@
+a,input[type=submit],input[type=reset],input[type=button],button{
+  &.btn{
+    @include inblock;
+    text-decoration: none;
+    text-align: center;
+    padding: topx($baseFontSize / 2) topx($baseFontSize / 2);
+    outline: none;
+    cursor: pointer;
+    border: none;
+
+    color: $baseFontColor;
+    font-family: $baseFontFamily;
+    font-size: $baseFontSize;
+    @include box-shadow($shadowLevel1);
+
+    &.btn--default{
+      background-color: $grey;
+    }
+    &.btn--primary{
+      background-color: $blue;
+    }
+    &.btn--success{
+      background-color: $green;
+    }
+    &.btn--danger{
+      background-color: $red;
+      color: $white;
+    }
+  }
+
+  &.flat-btn{
+    @include inblock;
+    text-decoration: none;
+    text-align: center;
+    padding: topx($baseFontSize / 2) topx($baseFontSize / 2);
+    outline: none;
+    cursor: pointer;
+    border: none;
+
+    color: $baseFontColor;
+    font-family: $baseFontFamily;
+    font-size: $baseFontSize;
+
+    &.btn--default{
+      background-color: $baseBgColor;
+    }
+    &.btn--primary{
+      background-color: $blue;
+    }
+    &.btn--success{
+      background-color: $green;
+    }
+    &.btn--danger{
+      background-color: $red;
+      color: $white;
+    }
+  }
+}

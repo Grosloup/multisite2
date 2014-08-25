@@ -26,7 +26,7 @@
                     <div class="form__row {% if form.title.vars.errors|length > 0 %}has-errors{% endif %}">
                         {{ form_label(form.title, null, {"label_attr":{"class":"form__label"}} ) }}
                         {{ form_widget(form.title, {"attr":{"class":"form__field", "placeholder":form.title.vars.label}}) }}
-                        <div class="form_field_errors">
+                        <div class="form__field__errors">
                             {{ form_errors(form.title) }}
                         </div>
 

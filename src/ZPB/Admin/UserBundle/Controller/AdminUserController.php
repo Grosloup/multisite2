@@ -56,10 +56,10 @@ class AdminUserController extends BaseController
             $user->setRegisterBefore(new \DateTime());
             $registerBefore = $user->getRegisterBefore()->format('d/m/Y H:i:s');
             $registerUrl = $this->generateUrl('zpb_admin_user_enable_account', ['activate'=>$activateCode, 'limit'=>$user->getRegisterBefore()->getTimestamp()], UrlGeneratorInterface::ABSOLUTE_URL);
-            var_dump($plainPassword, $activateCode, $registerBefore, $registerUrl);die();
-            //$em = $this->getManager(); //TODO email generation
-            //$em->persist($user);
-            //$em->flush();
+
+            $em = $this->getManager(); //TODO email generation
+            $em->persist($user);
+            $em->flush();
 
             //envoi de l'email
 
@@ -79,6 +79,19 @@ class AdminUserController extends BaseController
     {
         // /utilisateus/modifier/{id} ["GET"]
         //TODO AdminUserController
+
+        $token = $request->query->get('_token', false);
+        if(!$token || !$this->getCsrf()->isCsrfTokenValid('delete_user', $token)){
+            throw $this->createAccessDeniedException();
+        }
+        $user = $this->getRepo('ZPBAdminUserBundle:AdminUser')->find($id);
+        if(!$user){
+            throw $this->createNotFoundException(); //TODO custom user not found
+        }
+        $em = $this->getManager();
+        $em->remove($user);
+        $em->flush();
+        return $this->redirect($this->generateUrl('zpb_admin_user_list'));
     }
 
     public function newPasswordAction()

@@ -54,11 +54,21 @@ class AdminUserController extends BaseController
         if($form->isValid()){
             $plainPassword = $user->getPlainPassword();
             $activateCode = $user->getActivationCode();
+            /** @var \ZPB\Admin\UserBundle\Entity\Role $simpleUserRole */
+            $simpleUserRole = $this->getRepo('ZPBAdminUserBundle:Role')->findOneByName('user');
+
+            $em = $this->getManager();
+            if($simpleUserRole){
+                $user->addRole($simpleUserRole);
+                /*$simpleUserRole->addUser($user);
+                $em->persist($simpleUserRole);*/
+            }
+            //
             $user->setRegisterBefore(new \DateTime());
             $registerBefore = $user->getRegisterBefore()->format('d/m/Y H:i:s');
             $registerUrl = $this->generateUrl('zpb_admin_user_enable_account', ['activate'=>$activateCode, 'limit'=>$user->getRegisterBefore()->getTimestamp()], UrlGeneratorInterface::ABSOLUTE_URL);
 
-            $em = $this->getManager(); //TODO email generation
+             //TODO email generation
             $em->persist($user);
             $em->flush();
 

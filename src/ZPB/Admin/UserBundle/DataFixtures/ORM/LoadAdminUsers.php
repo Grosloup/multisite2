@@ -63,6 +63,7 @@ class LoadAdminUsers extends AbstractFixture implements OrderedFixtureInterface,
             ->setEmail('lili.canfrere@gmail.com')
             ->setUsername('lilie')
             ->setPlainPassword('lilie')
+            ->addRole($this->getReference('zpb-admin-role-1'))
             ->addRole($this->getReference('zpb-admin-role-2'))
             ->setIsActive(true)
         ;
@@ -76,6 +77,7 @@ class LoadAdminUsers extends AbstractFixture implements OrderedFixtureInterface,
             ->setEmail('fred.canfrere@gmail.com')
             ->setUsername('fred')
             ->setPlainPassword('fred')
+            ->addRole($this->getReference('zpb-admin-role-1'))
             ->addRole($this->getReference('zpb-admin-role-3'))
             ->setIsActive(true)
         ;

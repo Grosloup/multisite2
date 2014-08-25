@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+
+    <parameters>
+        <parameter key="zpb.constraint.plainpw_validator.class">ZPB\Admin\CommonBundle\Validator\Constraints\PlainPwValidator</parameter>
+
+        <parameter key="zpb.plainpw_validator.conf" type="collection">
+            <parameter key="minlen">8</parameter>
+            <parameter key="haslower">true</parameter>
+            <parameter key="hasupper">true</parameter>
+            <parameter key="hasnum">true</parameter>
+        </parameter>
+    </parameters>
+
+    <services>
+        <service id="zpb.constraint.validator.plainpw" class="%zpb.constraint.plainpw_validator.class%">
+            <argument type="string">%zpb.plainpw_validator.conf%</argument>
+            <tag name="validator.constraint_validator" alias="plainpw_validator" />
+        </service>
+    </services>
+
+
+</container>

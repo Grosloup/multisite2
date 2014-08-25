@@ -18,19 +18,19 @@
       (__<  |mm_|mm_|  |mm_|mm_|
 */
 
-namespace ZPB\Admin\UserBundle\Validator\Constraints;
+namespace ZPB\Admin\CommonBundle\Validator\Constraints;
 
 
 
 use Symfony\Component\Validator\Constraint;
 
 /**
- * Class Password
- * @package ZPB\Admin\UserBundle\Validator\Constraints
+ * Class PlainPw
+ * @package ZPB\Admin\CommonBundle\Validator\Constraints
  * @Annotation
  * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
  */
-class PassWord extends Constraint
+class PlainPw extends Constraint
 {
     public $message = 'Le mot de passe fourni est incorrect';
     public $minLen = 'Le mot de passe doit contenir au moins %d caractères';
@@ -40,6 +40,6 @@ class PassWord extends Constraint
 
     public function validateBy()
     {
-        return 'pass_word_validator';
+        return 'plainpw_validator';
     }
 }

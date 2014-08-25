@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use ZPB\Admin\UserBundle\Validator\Constraints as ZPBAssert;
+use ZPB\Admin\CommonBundle\Validator\Constraints as ZPBCAssert;
 
 /**
  * AdminUser
@@ -59,7 +60,7 @@ class AdminUser implements AdvancedUserInterface, Serializable
 
     /**
      * @var string
-     * @ZPBAssert\Civility
+     * @ZPBAssert\Civility()
      * @ORM\Column(name="civilite", type="string", length=40, nullable=false)
      */
     private $civilite;
@@ -110,7 +111,7 @@ class AdminUser implements AdvancedUserInterface, Serializable
     /**
      * @var string
      *
-     * @ZPBAssert\PassWord
+     * @ZPBCAssert\PlainPw()
      */
     private $plainPassword;
 

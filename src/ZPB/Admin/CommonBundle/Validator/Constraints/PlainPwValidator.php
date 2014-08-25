@@ -5,40 +5,27 @@
  * Date: 23/08/2014
  * Time: 14:33
  */
- /*
-           ____________________
-  __      /     ______         \
- {  \ ___/___ /       }         \
-  {  /       / #      }          |
-   {/ ô ô  ;       __}           |
-   /          \__}    /  \       /\
-<=(_    __<==/  |    /\___\     |  \
-   (_ _(    |   |   |  |   |   /    #
-    (_ (_   |   |   |  |   |   |
-      (__<  |mm_|mm_|  |mm_|mm_|
-*/
 
-namespace ZPB\Admin\UserBundle\Validator\Constraints;
+namespace ZPB\Admin\CommonBundle\Validator\Constraints;
 
 
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-class PassWordValidator extends ConstraintValidator implements ContainerAwareInterface
+class PlainPwValidator extends ConstraintValidator
 {
-    private $container;
+    private $params;
 
-    function __construct(ContainerInterface $container)
+    public function __construct(array $params = null)
     {
-        $this->container = $container;
+        $this->params = $params;
     }
 
 
     public function validate($value, Constraint $constraint)
     {
-        $params = $this->container->getParameter('zpb.password_validator.params');
+        $params = $this->params;
         if(!empty($params['minlen']) && strlen($value) < $params['minlen']){
             $this->context->addViolation(sprintf($constraint->minLen, $params['minlen']));
         }
@@ -63,17 +50,5 @@ class PassWordValidator extends ConstraintValidator implements ContainerAwareInt
                 $this->context->addViolation($constraint->hasUpper);
             }
         }
-    }
-
-    /**
-     * Sets the Container.
-     *
-     * @param ContainerInterface|null $container A ContainerInterface instance or null
-     *
-     * @api
-     */
-    public function setContainer(ContainerInterface $container = null)
-    {
-       $this->container = $container;
     }
 }

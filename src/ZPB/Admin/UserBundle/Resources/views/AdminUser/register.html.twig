@@ -50,11 +50,11 @@
                 </div>
             </div>
 
-            <div class="form__row {% if form.plain_password.vars.errors|length > 0 %}has-errors{% endif %}">
-                {{ form_label(form.plain_password, null, {"label_attr":{"class":"form__label"}})}}
-                {{ form_widget(form.plain_password, {"attr":{"class":"form__field", "placeholder":form.plain_password.vars.label}})}}
+            <div class="form__row {% if form.plainPassword.vars.errors|length > 0 %}has-errors{% endif %}">
+                {{ form_label(form.plainPassword, null, {"label_attr":{"class":"form__label"}})}}
+                {{ form_widget(form.plainPassword, {"attr":{"class":"form__field", "placeholder":form.plainPassword.vars.label}})}}
                 <div class="form__field__errors">
-                    {{ form_errors(form.plain_password)}}
+                    {{ form_errors(form.plainPassword)}}
                 </div>
             </div>
 

@@ -8,12 +8,7 @@
     <!--<parameters>
         <parameter key="zpb.constraint.plainpw_validator.class">ZPB\Admin\CommonBundle\Validator\Constraints\PlainPwValidator</parameter>
 
-        <parameter key="zpb.plainpw_validator.conf" type="collection">
-            <parameter key="minlen">8</parameter>
-            <parameter key="haslower">true</parameter>
-            <parameter key="hasupper">true</parameter>
-            <parameter key="hasnum">true</parameter>
-        </parameter>
+
     </parameters>
 
     <services>

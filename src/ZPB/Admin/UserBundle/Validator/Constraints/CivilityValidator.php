@@ -40,7 +40,7 @@ class CivilityValidator extends ConstraintValidator
         if($types && is_array($types)){
 
             if(!array_key_exists($value, $types)){
-                $this->context->addViolation($constraint->message);
+                $this->context->addViolation($constraint->gender);
             }
         }
     }

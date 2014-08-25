@@ -17,7 +17,12 @@
             <parameter key="Mr">Monsieur</parameter>
         </parameter>
 
-
+        <parameter key="zpb.plainpwvalidator.config" type="collection">
+            <parameter key="minlen">8</parameter>
+            <parameter key="haslower">true</parameter>
+            <parameter key="hasupper">true</parameter>
+            <parameter key="hasnum">true</parameter>
+        </parameter>
 
     </parameters>
 
@@ -36,10 +41,17 @@
             <tag name="form.type" alias="civility_type"/>
         </service>
 
-        <service id="zpb.constraint.civility_validator" class="%zpb.constraint.civility_validator.class%">
-            <argument type="service" id="service_container" />
-            <tag name="validator.constraint_validator" alias="civility_validator"/>
+        <service class="ZPB\Admin\UserBundle\Validator\Constraints\PlainPwValidator" id="zpb_admin_userbundle.validator.constraints.plainpwvalidator" >
+            <argument id="service_container" type="service" />
+            <tag name="validator.constraint_validator" alias="plain_pw_validator" priority="9"/>
         </service>
+
+        <service id="zpb.constraint.civility_validator" class="%zpb.constraint.civility_validator.class%">
+            <argument id="service_container" type="service" />
+            <tag name="validator.constraint_validator" alias="civility_validator" priority="10"/>
+        </service>
+
+
 
     </services>
 

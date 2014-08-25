@@ -109,7 +109,7 @@ class AdminUser implements AdvancedUserInterface, Serializable
 
     /**
      * @var string
-     *
+     * @ZPBAssert\PlainPw()
      */
     private $plainPassword;
 

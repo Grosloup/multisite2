@@ -5,7 +5,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
 
-    <parameters>
+    <!--<parameters>
         <parameter key="zpb.constraint.plainpw_validator.class">ZPB\Admin\CommonBundle\Validator\Constraints\PlainPwValidator</parameter>
 
         <parameter key="zpb.plainpw_validator.conf" type="collection">
@@ -21,7 +21,7 @@
             <argument type="string">%zpb.plainpw_validator.conf%</argument>
             <tag name="validator.constraint_validator" alias="plainpw_validator" />
         </service>
-    </services>
+    </services>-->
 
 
 </container>

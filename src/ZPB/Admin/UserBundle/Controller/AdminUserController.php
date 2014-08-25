@@ -26,6 +26,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use ZPB\Admin\CommonBundle\Controller\BaseController;
 use ZPB\Admin\UserBundle\Entity\AdminUser;
 use ZPB\Admin\UserBundle\Form\Type\AdminUserType;
+use ZPB\Admin\UserBundle\Form\Type\UpdateAdminUserType;
 
 class AdminUserController extends BaseController
 {
@@ -73,6 +74,21 @@ class AdminUserController extends BaseController
     {
         // /utilisateus/modifier/{id} ["POST","GET"]
         //TODO AdminUserController
+        $user = $this->getRepo('ZPBAdminUserBundle:AdminUser')->find($id);
+        if(!$user){
+            throw $this->createNotFoundException(); //TODO custom user not found
+        }
+        if($user->isSuperAdmin()){
+            throw $this->createAccessDeniedException();
+        }
+        $form = $this->createForm(new UpdateAdminUserType(), $user);
+
+        $form->handleRequest($request);
+        if($form->isValid()){
+
+        }
+
+        return $this->render('ZPBAdminUserBundle:AdminUser:update.html.twig', ['form'=>$form->createView()]);
     }
 
     public function deleteAction($id, Request $request)
@@ -87,6 +103,9 @@ class AdminUserController extends BaseController
         $user = $this->getRepo('ZPBAdminUserBundle:AdminUser')->find($id);
         if(!$user){
             throw $this->createNotFoundException(); //TODO custom user not found
+        }
+        if($user->isSuperAdmin()){
+            throw $this->createAccessDeniedException();
         }
         $em = $this->getManager();
         $em->remove($user);

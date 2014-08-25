@@ -1,7 +1,7 @@
 {% extends "ZPBAdminUserBundle:Layouts:adminuser.master.html.twig" %}
 
-{% block page_small_title %}Enregistrement{% endblock %}
-{% set active_mainsidebar = "register" %}
+{% block page_small_title %}Modifier{% endblock %}
+{% set active_mainsidebar = "update" %}
 
 {% block content %}
     <div class="row">
@@ -50,14 +50,6 @@
                 </div>
             </div>
 
-            <div class="form__row {% if form.plain_password.vars.errors|length > 0 %}has-errors{% endif %}">
-                {{ form_label(form.plain_password, null, {"label_attr":{"class":"form__label"}})}}
-                {{ form_widget(form.plain_password, {"attr":{"class":"form__field", "placeholder":form.plain_password.vars.label}})}}
-                <div class="form__field__errors">
-                    {{ form_errors(form.plain_password)}}
-                </div>
-            </div>
-
             <div class="form__row {% if form.roles.vars.errors|length > 0 %}has-errors{% endif %}">
                 {{ form_label(form.roles) }}
                 {{ form_widget(form.roles, {attr: {class: "form__checkbox"}}) }}
@@ -73,5 +65,4 @@
         </div>
         <div class="column-6"></div>
     </div>
-
 {% endblock %}

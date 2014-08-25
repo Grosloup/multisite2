@@ -581,4 +581,9 @@ class AdminUser implements AdvancedUserInterface, Serializable
             $this->password
             ) = unserialize($serialized);
     }
+
+    public function isSuperAdmin()
+    {
+        return in_array('ROLE_SUPERADMIN', $this->getRoles());
+    }
 }

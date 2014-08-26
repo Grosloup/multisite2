@@ -129,6 +129,7 @@ class Image
 
     /**
      * @var \Symfony\Component\HttpFoundation\File\UploadedFile
+     * @Assert\Image(maxSize="6291456",mimeTypes ={"image/png","image/jpeg","image/gif"}, mimeTypesMessage="Votre image n'est pas une image valide.", maxSizeMessage="Votre image est trop lourde.")
      */
     public $file;
 
@@ -145,9 +146,43 @@ class Image
         $this->isPostThumbnail = false;
     }
 
+    /**
+     * @return bool
+     */
     public function upload()
     {
+        if ($this->file == null) {
+            return false;
+        }
+        $this->extension = $this->file->getExtension();
+        $this->mime = $this->file->getMimeType();
 
+        $dest = $this->rootDir . $this->uploadDir;
+
+
+        if(!$this->filename){
+            $this->filename = $this->sanitizeFilename($this->file->getClientOriginalName());
+        } else {
+            $this->filename .= $this->extension;
+        }
+        $this->file->move($dest, $this->filename);
+
+
+        return true;
+    }
+
+    public function getAbsolutePath()
+    {
+        return $this->rootDir . $this->uploadDir . $this->filename;
+    }
+
+    /**
+     * @param string $string
+     * @return string
+     */
+    private function sanitizeFilename($string="")
+    {
+        return preg_replace('/[^a-zA-Z0-9._-]/', '', $string);
     }
 
     /**

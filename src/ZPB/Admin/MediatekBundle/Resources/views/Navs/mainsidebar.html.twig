@@ -1,0 +1,30 @@
+{% import "ZPBAdminUserBundle:Macros:sidebar.html.twig" as sidebar %}
+
+{{ sidebar.allwrap(
+        "sidenav__left",
+        {
+            sec1:{
+                "class":"sidenav__section",
+                "title":"Images",
+                "title_class":"sidenav__section__title",
+                "list_class": "sidenav__nav",
+                "row_type": "ul",
+                "rows": {
+                    "list_img": {type: "path", link: "zpb_admin_mediatek_image_list", text: "Liste des images", params:{} },
+                    "img_upload": {type: "path", link: "zpb_admin_mediatek_image_upload", text: "Upload", params:{} },
+                }
+            },
+            sec2:{
+                "class":"sidenav__section",
+                "title":"Pdf",
+                "title_class":"sidenav__section__title",
+                "list_class": "sidenav__nav",
+                "row_type": "ul",
+                "rows": {
+
+                }
+            }
+        },
+        active_mainsidebar
+    )
+}}

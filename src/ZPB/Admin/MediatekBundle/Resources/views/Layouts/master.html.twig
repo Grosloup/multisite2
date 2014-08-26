@@ -1,0 +1,27 @@
+{% extends "ZPBAdminCommonBundle:Layouts:master.html.twig" %}
+{% block title %}La médiathèque{% endblock %}
+{% set active_mainsidebar = active_mainsidebar|default("none") %}
+{% set mainSection = mainSection|default("Images") %}
+{% block main %}
+    <div class="container">
+        <div class="row">
+            <div class="column-12">
+                <div class="page-header">
+                    <h1>{{ mainSection }} <small>{% block page_small_title %}{% endblock %}</small></h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-3">
+                {{ render(controller("ZPBAdminMediatekBundle:Navs:mainSidebar", {active_mainsidebar:active_mainsidebar })) }}
+            </div>
+            <div class="column-9">
+                {% block content %}
+
+                {% endblock %}
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

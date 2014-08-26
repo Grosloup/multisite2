@@ -27,6 +27,9 @@
                 <argument>%zpb_mediatek_admin_img_thumbnail_max_dim%</argument>
             </call>
         </service>
+        <service class="ZPB\Admin\MediatekBundle\Service\ImageFactory" id="zpb_imagefactory">
+            <argument id="service_container" type="service"/>
+        </service>
 
     </services>
 

@@ -23,6 +23,7 @@ namespace ZPB\Admin\MediatekBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use ZPB\Admin\CommonBundle\Controller\BaseController;
+use ZPB\Admin\MediatekBundle\Form\Type\ImageUploadType;
 
 class ImagesController extends BaseController
 {
@@ -33,7 +34,14 @@ class ImagesController extends BaseController
 
     public function uploadAction(Request $request)
     {
-        return $this->render('ZPBAdminMediatekBundle:Images:upload.html.twig');
+        $image = $this->get('zpb_imagefactory')->createImage();
+
+        $form = $this->createForm(new ImageUploadType(), $image);
+        $form->handleRequest($request);
+        if($form->isValid()){
+
+        }
+        return $this->render('ZPBAdminMediatekBundle:Images:upload.html.twig', ['form'=>$form->createView()]);
     }
 
     public function deleteAction($id)

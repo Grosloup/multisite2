@@ -11,7 +11,7 @@
                 <li class="drop-down{% if active_main_menu == "general" %} active{% endif %}"><a href="#">Générale</a>
                     <ul>
                         <li><a href="{{ path("zpb_admin_user_list") }}"> Utilisateurs</a></li>
-                        <li><a href="#"> Médiathèque</a></li>
+                        <li><a href="{{ path("zpb_admin_mediatek_image_list") }}"> Médiathèque</a></li>
                     </ul>
                 </li>
                 <li class="drop-down{% if active_main_menu == "news" %} active{% endif %}" ><a href="">Actualités</a>

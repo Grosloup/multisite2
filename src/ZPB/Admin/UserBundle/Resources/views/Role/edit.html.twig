@@ -1,0 +1,30 @@
+{% extends "ZPBAdminUserBundle:Layouts:adminuser.master.html.twig" %}
+
+{% block page_small_title %}Edition d'un rôle : {{ role.readableName }} {% endblock %}
+{% set active_mainsidebar = "edit_role" %}
+
+{% block content %}
+    <div class="row">
+        <div class="column-6">
+            {{ form_start(form) }}
+            <div class="form__row">
+                <div class="as-input">
+                    {{ role.name }}
+                </div>
+            </div>
+            <div class="form__row {% if form.readableName.vars.errors|length > 0 %}has-errors{% endif %}">
+                {{ form_label(form.readableName, null, {"label_attr":{"class":"form__label"}}) }}
+                {{ form_widget(form.readableName, {attr: {class: "form__field", "placeholder":form.readableName.vars.label}}) }}
+                <div class="form__field__errors">
+                    {{ form_errors(form.readableName) }}
+                </div>
+            </div>
+            <div class="form__row">
+                {{ form_widget(form.save, {"attr":{class:"flat-btn btn--default"}}) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+        <div class="column-6"></div>
+    </div>
+    {{ form(form) }}
+{% endblock %}

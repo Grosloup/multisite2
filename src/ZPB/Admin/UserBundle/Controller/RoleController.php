@@ -24,6 +24,7 @@ namespace ZPB\Admin\UserBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use ZPB\Admin\CommonBundle\Controller\BaseController;
 use ZPB\Admin\UserBundle\Entity\Role;
+use ZPB\Admin\UserBundle\Form\Type\RoleEditType;
 use ZPB\Admin\UserBundle\Form\Type\RoleType;
 
 class RoleController extends BaseController
@@ -58,7 +59,7 @@ class RoleController extends BaseController
         if(!$role){
             throw $this->createNotFoundException(); //TODO Role not found
         }
-        $form = $this->createForm(new RoleType(), $role);
+        $form = $this->createForm(new RoleEditType(), $role);
 
         $form->handleRequest($request);
         if($form->isValid()){
@@ -67,7 +68,7 @@ class RoleController extends BaseController
             $em->persist($role);
             $em->flush();*/
         }
-        return $this->render('ZPBAdminUserBundle:Role:edit.html.twig', ['form'=>$form->createView()]);
+        return $this->render('ZPBAdminUserBundle:Role:edit.html.twig', ['form'=>$form->createView(), 'role'=>$role]);
     }
 
     public function deleteAction($id, Request $request)

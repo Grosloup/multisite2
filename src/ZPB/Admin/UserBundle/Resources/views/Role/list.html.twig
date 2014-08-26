@@ -21,7 +21,8 @@
                     <td>{{ role.name }}</td>
                     <td>{{ role.readableName }}</td>
                     <td><a class="btn btn--default" href="{{ path("zpb_admin_roles_edit", {id: role.id}) }}"><span class="icon-054"></span></a></td>
-                    <td><a class="btn btn--danger delete-alert" href="{{ path("zpb_admin_roles_delete", {id: role.id, _token: csrf_token("delete_role")}) }}" data-name="{{ role.readableName }}"><span class="icon-030"></span></a></td>
+                    <td> - </td>
+                    {#<td><a class="btn btn--danger delete-alert" href="{{ path("zpb_admin_roles_delete", {id: role.id, _token: csrf_token("delete_role")}) }}" data-name="{{ role.readableName }}"><span class="icon-030"></span></a></td>#}
                 </tr>
             {% endfor %}
         </tbody>

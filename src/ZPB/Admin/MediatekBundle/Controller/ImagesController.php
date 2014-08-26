@@ -28,12 +28,12 @@ class ImagesController extends BaseController
 {
     public function listAction($page = 1)
     {
-        die('list images');
+        return $this->render('ZPBAdminMediatekBundle:Images:list.html.twig');
     }
 
     public function uploadAction(Request $request)
     {
-        die('upload images');
+        return $this->render('ZPBAdminMediatekBundle:Images:upload.html.twig');
     }
 
     public function deleteAction($id)

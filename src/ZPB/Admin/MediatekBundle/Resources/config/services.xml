@@ -22,7 +22,7 @@
         </service>
 
         <service class="ZPB\Admin\MediatekBundle\Service\ThumbMaker" id="zpb_thumbfactory">
-            <argument id="service_container" type="service"/>
+            <argument id="filesystem" type="service"/>
             <call method="setMaxSize">
                 <argument>%zpb_mediatek_admin_img_thumbnail_max_dim%</argument>
             </call>

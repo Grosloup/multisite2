@@ -90,7 +90,7 @@ class ThumbMaker
     {
         $filename = $image->getAbsolutePath();
         $img = $this->createImage($filename, $image->getMime());
-        $destFilename = $image->getAbsoluteThumbnail();
+        $destFilename = $image->getAbsoluteThumbnailPath();
         if ($image->getHeight() > $this->maxSize) {
             $ratio = $this->maxSize / $image->getHeight();
             $newWidth = $ratio * $image->getWidth();

@@ -442,7 +442,7 @@ class Image
      */
     public function setRootDir($rootDir)
     {
-        $this->rootDir = trim($rootDir, " /") . "/";
+        $this->rootDir = "/" . trim($rootDir, " /") . "/";
 
         return $this;
     }

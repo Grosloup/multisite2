@@ -41,7 +41,11 @@ class ImagesController extends BaseController
         $form = $this->createForm(new ImageUploadType(), $image);
         $form->handleRequest($request);
         if($form->isValid()){
+            // upload
 
+            //resize
+
+            //persist
         }
         return $this->render('ZPBAdminMediatekBundle:Images:upload.html.twig', ['form'=>$form->createView()]);
     }

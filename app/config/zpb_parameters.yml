@@ -1,2 +1,8 @@
 parameters:
     default_subdommain: "new."
+
+    zpb_mediatek_root_dir: "%kernel.root_dir%/../web/"
+    zpb_mediatek_img_uplaod_dir: "uploads/images/"
+    zpb_mediatek_pdf_uplaod_dir: "uploads/pdf/"
+    zpb_mediatek_admin_img_thumbnail_max_dim: 600
+    zpb_mediatek_admin_img_thumbnail_dir: "uploads/admin/thumbs/"

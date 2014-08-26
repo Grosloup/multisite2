@@ -4,6 +4,9 @@ namespace ZPB\Admin\MediatekBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use ZPB\Admin\MediatekBundle\Validator\Constraints as ZPBAssert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Image
@@ -26,6 +29,7 @@ class Image
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
+     * @Gedmo\Timestampable(on="create')
      */
     private $createdAt;
 
@@ -33,6 +37,7 @@ class Image
      * @var \DateTime
      *
      * @ORM\Column(name="updated_at", type="datetime")
+     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 
@@ -46,21 +51,24 @@ class Image
     /**
      * @var string
      *
-     * @ORM\Column(name="extension", type="string", length=5)
+     * @ORM\Column(name="extension", type="string", length=5, nullable=false)
+     * @ZPBAssert\ImageExtension()
      */
     private $extension;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="width", type="integer")
+     * @ORM\Column(name="width", type="integer", nullable=false)
+     * @Assert\Regex("/^[0-9]+$/", message="Ce champs n'est pas du bon type")
      */
     private $width;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="height", type="integer")
+     * @ORM\Column(name="height", type="integer", nullable=false)
+     * @Assert\Regex("/^[0-9]+$/", message="Ce champs n'est pas du bon type")
      */
     private $height;
 
@@ -95,6 +103,13 @@ class Image
     /**
      * @var string
      *
+     * @ORM\Column(name="thumbDir", type="string", length=255)
+     */
+    private $thumbDir;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="mime", type="string", length=100)
      */
     private $mime;
@@ -113,11 +128,26 @@ class Image
     private $tags;
 
     /**
+     * @var \Symfony\Component\HttpFoundation\File\UploadedFile
+     */
+    public $file;
+
+    /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($uploadDir = 'uploads/images/', $thumbDir = 'uploads/admin/thumbs/', $rootDir = "web/", $copyright = "@ ZooParc de Beauval")
     {
         $this->tags = new ArrayCollection();
+        $this->uploadDir = $uploadDir;
+        $this->thumbDir = $thumbDir;
+        $this->rootDir = $rootDir;
+        $this->copyright = $copyright;
+        $this->isPostThumbnail = false;
+    }
+
+    public function upload()
+    {
+
     }
 
     /**
@@ -309,6 +339,10 @@ class Image
      */
     public function setCopyright($copyright)
     {
+        $copyright = trim($copyright);
+        if($copyright[0] != '@'){
+            $copyright = '@ ' . $copyright;
+        }
         $this->copyright = $copyright;
 
         return $this;
@@ -359,6 +393,26 @@ class Image
 
         return $this;
     }
+
+    /**
+     * @param string $thumbDir
+     * @return Image
+     */
+    public function setThumbDir($thumbDir)
+    {
+        $this->thumbDir = $thumbDir;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getThumbDir()
+    {
+        return $this->thumbDir;
+    }
+
+
 
     /**
      * Get mime

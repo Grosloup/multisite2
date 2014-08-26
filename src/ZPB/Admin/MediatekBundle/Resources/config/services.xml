@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+
+    <parameters>
+        <parameter key="img_allowed_extensions" type="collection">
+            <parameter key="jpg">jpg</parameter>
+            <parameter key="jpeg">jpeg</parameter>
+            <parameter key="gif">gif</parameter>
+            <parameter key="png">png</parameter>
+        </parameter>
+    </parameters>
+
+    <services>
+        <service class="\ZPB\Admin\MediatekBundle\Validator\Constraints\ImageExtensionValidator" id="zpb_admin_mediatekbundle.validator.constraints.imageextensionvalidator">
+            <argument type="string">%img_allowed_extensions%</argument>
+            <tag name="validator.constraint_validator" alias="zpb.imageextensionvalidator" />
+        </service>
+
+    </services>
+
+</container>

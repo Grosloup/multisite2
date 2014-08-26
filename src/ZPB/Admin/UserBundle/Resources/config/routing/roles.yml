@@ -1,0 +1,26 @@
+zpb_admin_roles_list:
+    path:     /
+    defaults: { _controller: ZPBAdminUserBundle:Role:list }
+    methods: ["GET"]
+
+zpb_admin_roles_create:
+    path: /nouveau
+    defaults: { _controller: ZPBAdminUserBundle:Role:create }
+    methods: ["GET","POST"]
+
+zpb_admin_roles_edit:
+    path: /editer/{id}
+    defaults: { _controller: ZPBAdminUserBundle:Role:edit }
+    methods: ["GET","POST"]
+    requirements:
+        id: \d+
+
+zpb_admin_roles_delete:
+    path: /nouveau
+    defaults: { _controller: ZPBAdminUserBundle:Role:delete }
+    methods: ["GET"]
+    requirements:
+        id: \d+
+
+
+

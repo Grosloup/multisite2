@@ -9,3 +9,14 @@ zpb_admin_auth_routes:
 zpb_admin_account_routes:
     prefix: /comptes
     resource: "@ZPBAdminUserBundle/Resources/config/routing/account.yml"
+
+zpb_admin_roles_routes:
+    prefix: /roles
+    resource: "@ZPBAdminUserBundle/Resources/config/routing/roles.yml"
+
+
+
+
+
+
+

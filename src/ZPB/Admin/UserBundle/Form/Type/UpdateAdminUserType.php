@@ -36,7 +36,7 @@ class UpdateAdminUserType extends AbstractType
             ->add('lastname',null,['label'=>'Nom'])
             ->add('email','email',['label'=>'Email'])
             ->add('username',null,['label'=>'Pseudo'])
-            ->add('roles','entity',['label'=>'Roles','class'=>'ZPB\Admin\UserBundle\Entity\Role','property'=>'readableName','multiple'=>true,'expanded'=>true])
+            ->add('roles','entity',['label'=>'Rôles','class'=>'ZPB\Admin\UserBundle\Entity\Role','property'=>'readableName','multiple'=>true,'expanded'=>true])
             ->add('save','submit',['label'=>'Enregistrer'])
         ;
     }

@@ -64,8 +64,9 @@
                                             {% endfor %}
                                         </ul>
                                     </td>
+
                                     <td><a class="btn btn--default" href="{{ path("zpb_admin_news_posts_edit", {id: post.id}) }}"><span class="icon-054"></span></a></td>
-                                    <td><a class="btn btn--default" href="{{ path("zpb_admin_news_posts_drop", {id: post.id}) }}"><span class="icon-030"></span></a></td>
+                                    <td><a class="btn btn--default delete-alert" href="{{ path("zpb_admin_news_posts_drop", {id: post.id}) }}" data-name="{{ post-title }}"><span class="icon-030"></span></a></td>
                                     <td></td>
                                 </tr>
                             {% endfor %}
@@ -79,6 +80,7 @@
 {% endblock %}
 {% block footScripts %}
     {{ parent() }}
+    <script src="/js/admin/delete_alert.js"></script>
     <script>
         $(function(){
             var selPostsPerPage = $("#postsperpage");

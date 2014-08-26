@@ -5,13 +5,24 @@
         {
             sec1:{
                     "class":"sidenav__section",
-                    "title":"",
+                    "title":"Utilisateurs",
                     "title_class":"sidenav__section__title",
                     "list_class": "sidenav__nav",
                     "row_type": "ul",
                     "rows": {
                         "list": {type: "path", link: "zpb_admin_user_list", text: "Liste des utilisateurs", params:{} },
                         "register": {type: "path", link: "zpb_admin_user_register", text: "Nouvel utilisateur", params:{} }
+                    }
+            },
+            sec2:{
+                    "class":"sidenav__section",
+                    "title":"Rôles",
+                    "title_class":"sidenav__section__title",
+                    "list_class": "sidenav__nav",
+                    "row_type": "ul",
+                    "rows": {
+                        "list_role": {type: "path", link: "zpb_admin_roles_list", text: "Liste des rôles", params:{}},
+                        "create_role": {type: "path", link: "zpb_admin_roles_create", text: "Nouveau rôle", params: {}}
                     }
             }
         },

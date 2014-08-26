@@ -31,7 +31,7 @@
                     <td> - </td>
                 {% else %}
                     <td><a href="{{ path("zpb_admin_user_update", {id: user.id}) }}" class="btn btn--default"><span class="icon-054"></span></a></td>
-                    <td><a href="{{ path("zpb_admin_user_delete", {id: user.id, _token:csrf_token("delete_user")}) }}" class="btn btn--danger"><span class="icon-030"></span></a></td>
+                    <td><a href="{{ path("zpb_admin_user_delete", {id: user.id, _token:csrf_token("delete_user")}) }}" class="btn btn--danger delete-alert"><span class="icon-030"></span></a></td>
                 {% endif %}
 
             </tr>

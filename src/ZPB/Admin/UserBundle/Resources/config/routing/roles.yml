@@ -16,7 +16,7 @@ zpb_admin_roles_edit:
         id: \d+
 
 zpb_admin_roles_delete:
-    path: /nouveau
+    path: /delete/{id}
     defaults: { _controller: ZPBAdminUserBundle:Role:delete }
     methods: ["GET"]
     requirements:

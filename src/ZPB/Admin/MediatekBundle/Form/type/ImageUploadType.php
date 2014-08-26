@@ -31,7 +31,7 @@ class ImageUploadType extends AbstractType
         $builder
             ->add('file','file', ['label'=>'Fichier image'])
             ->add('filename','text', ['label'=>'Renommer comme'])
-            ->add('title','text',['label'=>'Texte de l\'attribut title'])
+            ->add('title','textarea',['label'=>'Texte de l\'attribut title'])
             ->add('copyright','text',['label'=>'Texte du copyright'])
             ->add('save', 'submit', ['label'=>''])
         ;

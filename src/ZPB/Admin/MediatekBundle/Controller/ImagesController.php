@@ -29,7 +29,9 @@ class ImagesController extends BaseController
 {
     public function listAction($page = 1)
     {
-        return $this->render('ZPBAdminMediatekBundle:Images:list.html.twig');
+        $images = $this->getRepo('ZPBAdminMediatekBundle:Image')->findAll();
+
+        return $this->render('ZPBAdminMediatekBundle:Images:list.html.twig', ['images'=>$images]);
     }
 
     public function uploadAction(Request $request)

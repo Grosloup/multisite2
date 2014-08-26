@@ -30,7 +30,7 @@ class Image
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
-     * @Gedmo\Timestampable(on="create')
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 

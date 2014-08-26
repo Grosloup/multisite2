@@ -15,9 +15,17 @@
     </parameters>
 
     <services>
-        <service class="\ZPB\Admin\MediatekBundle\Validator\Constraints\ImageExtensionValidator" id="zpb_admin_mediatekbundle.validator.constraints.imageextensionvalidator">
+
+        <service class="ZPB\Admin\MediatekBundle\Validator\Constraints\ImageExtensionValidator" id="zpb_admin_mediatekbundle.validator.constraints.imageextensionvalidator">
             <argument type="string">%img_allowed_extensions%</argument>
             <tag name="validator.constraint_validator" alias="zpb.imageextensionvalidator" />
+        </service>
+
+        <service class="ZPB\Admin\MediatekBundle\Service\ThumbMaker" id="zpb_thumbfactory">
+            <argument id="service_container" type="service"/>
+            <call method="setMaxSize">
+                <argument>%zpb_mediatek_admin_img_thumbnail_max_dim%</argument>
+            </call>
         </service>
 
     </services>

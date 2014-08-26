@@ -13,6 +13,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table(name="zpb_admin_images")
  * @ORM\Entity(repositoryClass="ZPB\Admin\MediatekBundle\Entity\ImageRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Image
 {
@@ -43,8 +44,8 @@ class Image
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="filename", type="string", length=255)
+     * @Assert\Regex("/^[a-zA-Z0-9._-]*$/", message="Ce champ contient des caractères non autorisés.")
+     * @ORM\Column(name="filename", type="string", length=255, nullable=false)
      */
     private $filename;
 
@@ -75,42 +76,42 @@ class Image
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="title", type="text", nullable=true)
      */
     private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="copyright", type="string", length=255)
+     * @ORM\Column(name="copyright", type="string", length=255, nullable=false)
      */
     private $copyright;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="rootDir", type="string", length=255)
+     * @ORM\Column(name="rootDir", type="string", length=255, nullable=false)
      */
     private $rootDir;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="uploadDir", type="string", length=255)
+     * @ORM\Column(name="uploadDir", type="string", length=255, nullable=false)
      */
     private $uploadDir;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="thumbDir", type="string", length=255)
+     * @ORM\Column(name="thumbDir", type="string", length=255, nullable=false)
      */
     private $thumbDir;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mime", type="string", length=100)
+     * @ORM\Column(name="mime", type="string", length=100, nullable=false)
      */
     private $mime;
 
@@ -133,16 +134,20 @@ class Image
      */
     public $file;
 
+    private $originalPathForRemove;
+
+    private $thumbPathForRemove;
+
     /**
      * Constructor
      */
     public function __construct($uploadDir = 'uploads/images/', $thumbDir = 'uploads/admin/thumbs/', $rootDir = "web/", $copyright = "@ ZooParc de Beauval")
     {
         $this->tags = new ArrayCollection();
-        $this->uploadDir = $uploadDir;
-        $this->thumbDir = $thumbDir;
-        $this->rootDir = $rootDir;
-        $this->copyright = $copyright;
+        $this->setUploadDir($uploadDir);
+        $this->setThumbDir($thumbDir);
+        $this->setRootDir($rootDir);
+        $this->setCopyright($copyright);
         $this->isPostThumbnail = false;
     }
 
@@ -163,10 +168,14 @@ class Image
         if(!$this->filename){
             $this->filename = $this->sanitizeFilename($this->file->getClientOriginalName());
         } else {
-            $this->filename .= $this->extension;
+            $this->filename .= "." . $this->extension;
         }
         $this->file->move($dest, $this->filename);
 
+        $size = getimagesize($this->getAbsolutePath());
+        $this->width = $size[0];
+        $this->height = $size[1];
+        $this->file = null;
 
         return true;
     }
@@ -176,6 +185,16 @@ class Image
         return $this->rootDir . $this->uploadDir . $this->filename;
     }
 
+    public function getAbsoluteThumbnailPath()
+    {
+        return $this->rootDir . $this->thumbDir . $this->filename;
+    }
+
+    public function getWebPath()
+    {
+        return "/" . $this->uploadDir . $this->filename;
+    }
+
     /**
      * @param string $string
      * @return string
@@ -183,6 +202,28 @@ class Image
     private function sanitizeFilename($string="")
     {
         return preg_replace('/[^a-zA-Z0-9._-]/', '', $string);
+    }
+
+    /**
+     * @ORM\PreRemove()
+     */
+    public function storePath()
+    {
+        $this->originalPathForRemove = $this->getAbsolutePath();
+        $this->thumbPathForRemove = $this->getAbsoluteThumbnailPath();
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function remove()
+    {
+        if($this->originalPathForRemove != null){
+            unlink($this->originalPathForRemove);
+        }
+        if($this->thumbPathForRemove != null){
+            unlink($this->thumbPathForRemove);
+        }
     }
 
     /**
@@ -401,7 +442,7 @@ class Image
      */
     public function setRootDir($rootDir)
     {
-        $this->rootDir = $rootDir;
+        $this->rootDir = trim($rootDir, " /") . "/";
 
         return $this;
     }
@@ -424,7 +465,7 @@ class Image
      */
     public function setUploadDir($uploadDir)
     {
-        $this->uploadDir = $uploadDir;
+        $this->uploadDir = trim($uploadDir, " /") . "/";
 
         return $this;
     }
@@ -435,7 +476,7 @@ class Image
      */
     public function setThumbDir($thumbDir)
     {
-        $this->thumbDir = $thumbDir;
+        $this->thumbDir = trim($thumbDir, " /") . "/";
         return $this;
     }
 

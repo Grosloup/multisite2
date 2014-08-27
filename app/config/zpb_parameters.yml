@@ -8,3 +8,7 @@ parameters:
     zpb_mediatek_admin_img_thumbnail_dir: "uploads/admin/thumbs/"
     zpb_mediatek_admin_img_copyright: "ZooParc de Beauval"
 
+    zpb_mediatek_pdf_upload_dir: "downloads/pdf/"
+    zpb_mediatek_pdf_upload_thumb_dir: "downloads/pdf/thumbs/"
+    zpb_mediatek_pdf_upload_thumb_max_dim: "downloads/pdf/thumbs/"
+

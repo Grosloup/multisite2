@@ -46,6 +46,7 @@ class LoadImages extends AbstractFixture implements OrderedFixtureInterface, Con
 
         $fs->copy($this->container->getParameter('zpb_mediatek_root_dir') . "fixtures/images/image1.jpg",$this->container->getParameter('zpb_mediatek_root_dir') . "fixtures/images/tmp/image1.jpg");
         $fs->copy($this->container->getParameter('zpb_mediatek_root_dir') . "fixtures/images/image2.jpg",$this->container->getParameter('zpb_mediatek_root_dir') . "fixtures/images/tmp/image2.jpg");
+        $fs->copy($this->container->getParameter('zpb_mediatek_root_dir') . "fixtures/images/image3.jpg",$this->container->getParameter('zpb_mediatek_root_dir') . "fixtures/images/tmp/image3.jpg");
         $imageCreator = $this->container->get('zpb_imagefactory');
 
         $image1 = $imageCreator->createImage();
@@ -72,13 +73,28 @@ class LoadImages extends AbstractFixture implements OrderedFixtureInterface, Con
         $this->container->get('zpb_thumbfactory')->resize($image2);
         $manager->persist($image2);
 
+        $image3 = $imageCreator->createImage();
+        $filename = $this->container->getParameter('zpb_mediatek_root_dir') . "fixtures/images/tmp/image3.jpg";
+        $image3
+            ->setFilename('mon_image_3')
 
+            ->setTitle('Quisque in sem tempor, cursus velit non, congue arcu. Nam fermentum justo nec velit pulvinar, et ornare nunc rhoncus. Aliquam non enim tristique, tincidunt quam sed, rhoncus dolor.')
+            ->file = new UploadedFile($filename, 'image3',null,null,null,true);
+        ;
+        $image3->upload();
+        $this->container->get('zpb_thumbfactory')->resize($image3);
+        $manager->persist($image3);
 
 
         $manager->flush();
 
+        $image3->setFilename('mon_image_3_changer');
+        $manager->persist($image3);
+        $manager->flush();
+
         $this->addReference('zpb-media-img-1', $image1);
         $this->addReference('zpb-media-img-2', $image2);
+        $this->addReference('zpb-media-img-3', $image3);
 
     }
     

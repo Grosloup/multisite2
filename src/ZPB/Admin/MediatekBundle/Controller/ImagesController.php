@@ -31,7 +31,7 @@ class ImagesController extends BaseController
     {
         $images = $this->getRepo('ZPBAdminMediatekBundle:Image')->findAll();
 
-        return $this->render('ZPBAdminMediatekBundle:Images:list.html.twig', ['images'=>$images]);
+        return $this->render('ZPBAdminMediatekBundle:Images:list.html.twig', ['images'=>$images, 'page'=>$page]);
     }
 
     public function uploadAction(Request $request)
@@ -40,19 +40,39 @@ class ImagesController extends BaseController
 
         $form = $this->createForm(new ImageUploadType(), $image);
         $form->handleRequest($request);
+
         if($form->isValid()){
-            // upload
-
-            //resize
-
-            //persist
+            $image->upload();
+            $this->container->get('zpb_thumbfactory')->resize($image);
+            $this->getManager()->persist($image);
+            $this->getManager()->flush();
+            return $this->redirect($this->generateUrl('zpb_admin_mediatek_image_list'));
         }
         return $this->render('ZPBAdminMediatekBundle:Images:upload.html.twig', ['form'=>$form->createView()]);
     }
 
-    public function deleteAction($id)
+    public function editAction($id, Request $request)
     {
-        die('delete images');
+        $image = $this->getRepo('ZPBAdminMediatekBundle:Image')->find($id);
+        if(!$image){
+            throw $this->createNotFoundException();
+        }
+    }
+
+    public function deleteAction($id, Request $request)
+    {
+        $token = $request->query->get('_token', false);
+        if(!$token || !$this->getCsrf()->isCsrfTokenValid('delete_image', $token)){
+            throw $this->createAccessDeniedException();
+        }
+        $image = $this->getRepo('ZPBAdminMediatekBundle:Image')->find($id);
+        if(!$image){
+            throw $this->createNotFoundException();
+        }
+        $page = $request->query->get('_page', 1);
+        $this->getManager()->remove($image);
+        $this->getManager()->flush();
+        return $this->redirect($this->generateUrl('zpb_admin_mediatek_image_list', ['page'=>$page]));
     }
 
 }

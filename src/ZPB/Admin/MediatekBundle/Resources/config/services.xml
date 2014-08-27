@@ -31,6 +31,11 @@
             <argument id="service_container" type="service"/>
         </service>
 
+        <service class="ZPB\Admin\MediatekBundle\Listener\Entities\ImageListener" id="zpb_admin_mediatekbundle.listener.entities.imagelistener">
+            <argument id="filesystem" type="service"/>
+            <tag name="doctrine.event_listener" event="preUpdate"/>
+        </service>
+
     </services>
 
 </container>

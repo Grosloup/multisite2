@@ -3,5 +3,30 @@
 {% set active_mainsidebar = "list_img" %}
 {% set mainSection = "Images" %}
 {% block content %}
-    <p>liste images</p>
+    <table class="table table-hover table-striped">
+        <thead>
+        <tr>
+            <th>#id</th>
+            <th>Vignette</th>
+            <th>Fichier</th>
+            <th>créée le</th>
+            <th>Hauteur x largeur</th>
+            <th>Editer</th>
+            <th>Supprimer</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for image in images %}
+            <tr>
+                <td>{{ image.id }}</td>
+                <td><img src="{{ image.thumbWebPath }}" alt="" width="50" title="{{ image.title ~ image.copyright}}"/></td>
+                <td>{{ image.filename }}</td>
+                <td>{{ image.createdAt|date("d/m/y") }}</td>
+                <td>{{ image.width ~ " x " ~ image.height}}</td>
+                <td><a class="btn btn--default" href="{{ path("zpb_admin_mediatek_image_edit", {id: image.id}) }}"><span class="icon-054"></span></a></td>
+                <td><a class="btn btn--danger" href="{{ path("zpb_admin_mediatek_image_delete", {id: image.id, _token:csrf_token("delete_image"), _page: page})}}"><span class="icon-030"></span></a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

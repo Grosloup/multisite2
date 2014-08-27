@@ -27,6 +27,12 @@ class Image
     private $id;
 
     /**
+     * @var string
+     * @ORM\Column(name="long_id", type="string", length=200, nullable=false, unique=true)
+     */
+    private $longId;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
@@ -53,7 +59,7 @@ class Image
      * @var string
      *
      * @ORM\Column(name="extension", type="string", length=5, nullable=false)
-     * @ZPBAssert\ImageExtension()
+     *
      */
     private $extension;
 
@@ -149,6 +155,7 @@ class Image
         $this->setRootDir($rootDir);
         $this->setCopyright($copyright);
         $this->isPostThumbnail = false;
+        $this->generateLongId();
     }
 
     /**
@@ -159,7 +166,7 @@ class Image
         if ($this->file == null) {
             return false;
         }
-        $this->extension = $this->file->getExtension();
+        $this->extension = $this->file->guessExtension();
         $this->mime = $this->file->getMimeType();
 
         $dest = $this->rootDir . $this->uploadDir;
@@ -167,9 +174,10 @@ class Image
 
         if(!$this->filename){
             $this->filename = $this->sanitizeFilename($this->file->getClientOriginalName());
-        } else {
-            $this->filename .= "." . $this->extension;
+
         }
+        $this->filename = $this->filename . "." . $this->extension;
+
         $this->file->move($dest, $this->filename);
 
         $size = getimagesize($this->getAbsolutePath());
@@ -195,6 +203,11 @@ class Image
         return "/" . $this->uploadDir . $this->filename;
     }
 
+    public function getThumbWebPath()
+    {
+        return '/' . $this->thumbDir . $this->filename;
+    }
+
     /**
      * @param string $string
      * @return string
@@ -203,6 +216,8 @@ class Image
     {
         return preg_replace('/[^a-zA-Z0-9._-]/', '', $string);
     }
+
+
 
     /**
      * @ORM\PreRemove()
@@ -224,6 +239,29 @@ class Image
         if($this->thumbPathForRemove != null){
             unlink($this->thumbPathForRemove);
         }
+    }
+
+    /**
+     * @param string $longId
+     */
+    public function setLongId($longId)
+    {
+        $this->longId = $longId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLongId()
+    {
+        return $this->longId;
+    }
+
+    public function generateLongId()
+    {
+        $now = (new \DateTime())->getTimestamp();
+        $this->longId = base_convert(sha1(uniqid($now, true)), 16, 36);
+        return $this;
     }
 
     /**
@@ -300,6 +338,7 @@ class Image
      */
     public function setFilename($filename)
     {
+
         $this->filename = $filename;
 
         return $this;
@@ -442,7 +481,7 @@ class Image
      */
     public function setRootDir($rootDir)
     {
-        $this->rootDir = "/" . trim($rootDir, " /") . "/";
+        $this->rootDir = rtrim($rootDir, " /") . "/";
 
         return $this;
     }

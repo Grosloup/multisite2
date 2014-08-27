@@ -17,6 +17,12 @@ zpb_admin_mediatek_image_delete:
     requirements:
         id: \d+
 
+zpb_admin_mediatek_image_edit:
+    path: /editer/{id}
+    defaults: { _controller: ZPBAdminMediatekBundle:Images:edit }
+    methods: ["GEET","POST"]
+    requirements:
+        id: \d+
 
 
 

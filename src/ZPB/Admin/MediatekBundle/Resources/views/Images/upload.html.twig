@@ -14,7 +14,7 @@
                 </div>
             </div>
 
-            <div class="form__row">
+            <div class="form__row {% if form.filename.vars.errors|length > 0 %}has-errors{% endif %}">
                 {{ form_label(form.filename, null, {"label_attr":{"class":"form__label"}})}}
                 {{ form_widget(form.filename, {attr: {class: "form__field", "placeholder":form.filename.vars.label}})}}
                 <div class="form__field__errors">
@@ -22,7 +22,7 @@
                 </div>
             </div>
 
-            <div class="form__row">
+            <div class="form__row {% if form.title.vars.errors|length > 0 %}has-errors{% endif %}">
                 {{ form_label(form.title, null, {"label_attr":{"class":"form__label"}})}}
                 {{ form_widget(form.title, {attr: {class: "form__field", "placeholder":form.title.vars.label}})}}
                 <div class="form__field__errors">
@@ -30,7 +30,7 @@
                 </div>
             </div>
 
-            <div class="form__row">
+            <div class="form__row {% if form.copyright.vars.errors|length > 0 %}has-errors{% endif %}">
                 {{ form_label(form.copyright, null, {"label_attr":{"class":"form__label"}})}}
                 {{ form_widget(form.copyright, {attr: {class: "form__field", "placeholder":form.copyright.vars.label}})}}
                 <div class="form__field__errors">

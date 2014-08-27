@@ -33,7 +33,7 @@ class ImageUploadType extends AbstractType
             ->add('filename','text', ['label'=>'Renommer comme'])
             ->add('title','textarea',['label'=>'Texte de l\'attribut title'])
             ->add('copyright','text',['label'=>'Texte du copyright'])
-            ->add('save', 'submit', ['label'=>''])
+            ->add('save', 'submit', ['label'=>'Upload'])
         ;
     }
     

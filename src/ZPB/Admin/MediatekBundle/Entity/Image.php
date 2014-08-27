@@ -176,9 +176,9 @@ class Image
             $this->filename = $this->sanitizeFilename($this->file->getClientOriginalName());
 
         }
-        $this->filename = $this->filename . "." . $this->extension;
+        //$this->filename = $this->filename . "." . $this->extension;
 
-        $this->file->move($dest, $this->filename);
+        $this->file->move($dest, $this->filename . '.' . $this->extension);
 
         $size = getimagesize($this->getAbsolutePath());
         $this->width = $size[0];
@@ -190,22 +190,22 @@ class Image
 
     public function getAbsolutePath()
     {
-        return $this->rootDir . $this->uploadDir . $this->filename;
+        return $this->rootDir . $this->uploadDir . $this->filename. '.' . $this->extension;
     }
 
     public function getAbsoluteThumbnailPath()
     {
-        return $this->rootDir . $this->thumbDir . $this->filename;
+        return $this->rootDir . $this->thumbDir . $this->filename. '.' . $this->extension;
     }
 
     public function getWebPath()
     {
-        return "/" . $this->uploadDir . $this->filename;
+        return "/" . $this->uploadDir . $this->filename. '.' . $this->extension;
     }
 
     public function getThumbWebPath()
     {
-        return '/' . $this->thumbDir . $this->filename;
+        return '/' . $this->thumbDir . $this->filename. '.' . $this->extension;
     }
 
     /**

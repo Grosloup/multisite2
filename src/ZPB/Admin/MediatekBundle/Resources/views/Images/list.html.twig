@@ -9,8 +9,10 @@
             <th>#id</th>
             <th>Vignette</th>
             <th>Fichier</th>
+            <th>Extension</th>
             <th>créée le</th>
             <th>Hauteur x largeur</th>
+            <th>Copier l'url</th>
             <th>Editer</th>
             <th>Supprimer</th>
         </tr>
@@ -21,12 +23,24 @@
                 <td>{{ image.id }}</td>
                 <td><img src="{{ image.thumbWebPath }}" alt="" width="50" title="{{ image.title ~ image.copyright}}"/></td>
                 <td>{{ image.filename }}</td>
+                <td>{{ image.extension }}</td>
                 <td>{{ image.createdAt|date("d/m/y") }}</td>
                 <td>{{ image.width ~ " x " ~ image.height}}</td>
+                <td><button class="btn btn--default copy-url" data-clipboard-text="{{ image.webPath }}"><i class="fa fa-copy"></i></button></td>
                 <td><a class="btn btn--default" href="{{ path("zpb_admin_mediatek_image_edit", {id: image.id}) }}"><span class="icon-054"></span></a></td>
                 <td><a class="btn btn--danger" href="{{ path("zpb_admin_mediatek_image_delete", {id: image.id, _token:csrf_token("delete_image"), _page: page})}}"><span class="icon-030"></span></a></td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+{% endblock %}
+{% block footScripts %}
+    {{ parent() }}
+    <script src="/js/vendor/ZeroClipboard.min.js"></script>
+    <script>
+        ZeroClipboard.config({swfPath: "/js/vendor/ZeroClipboard.swf"});
+        $(".copy-url").each(function(){
+            var client = new ZeroClipboard($(this));
+        });
+    </script>
 {% endblock %}

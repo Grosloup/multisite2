@@ -23,6 +23,7 @@ namespace ZPB\Admin\MediatekBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use ZPB\Admin\CommonBundle\Controller\BaseController;
+use ZPB\Admin\MediatekBundle\Form\Type\ImageEditType;
 use ZPB\Admin\MediatekBundle\Form\Type\ImageUploadType;
 
 class ImagesController extends BaseController
@@ -57,6 +58,15 @@ class ImagesController extends BaseController
         if(!$image){
             throw $this->createNotFoundException();
         }
+        $form = $this->createForm(new ImageEditType(), $image);
+
+        $form->handleRequest($request);
+        if($form->isValid()){
+            $this->getManager()->persist($image);
+            $this->getManager()->flush();
+            return $this->redirect($this->generateUrl('zpb_admin_mediatek_image_list'));
+        }
+        return $this->render('ZPBAdminMediatekBundle:Images:edit.html.twig', ['form'=>$form->createView()]);
     }
 
     public function deleteAction($id, Request $request)

@@ -42,9 +42,9 @@ class ImageListener
         $entity = $args->getEntity();
         if($entity instanceof Image){
             if($args->hasChangedField('filename')){
-                $old = $args->getOldValue('filename');
+                $old = $args->getOldValue('filename') . "." . $entity->getExtension();
                 $new = $args->getNewValue('filename') . "." . $entity->getExtension();
-                $args->setNewValue('filename', $new);
+
                 $this->filesystem->rename($entity->getRootDir() . $entity->getUploadDir() . $old, $entity->getRootDir() . $entity->getUploadDir() . $new);
                 $this->filesystem->rename($entity->getRootDir() . $entity->getThumbDir() . $old, $entity->getRootDir() . $entity->getThumbDir() . $new);
             }

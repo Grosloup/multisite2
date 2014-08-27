@@ -1,3 +1,9 @@
 zpb_admin_common_homepage:
     path:     /
     defaults: { _controller: ZPBAdminCommonBundle:Default:index }
+
+
+
+zpb_admin_downloads_routes:
+    prefix: /downloads
+    resource: "@ZPBAdminCommonBundle/Resources/config/routing/downloads.yml"

@@ -1,0 +1,6 @@
+zpb_admin_download_pdf:
+    path: /pdf/{filename}.{_format}
+    defaults: { _controller: ZPBAdminCommonBundle:Downloads:downloadPdf, _format: pdf }
+    methods: ["GET"]
+    requirements:
+        filename: "[a-zA-Z0-9._-]+"

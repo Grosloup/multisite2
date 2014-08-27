@@ -21,7 +21,7 @@
         {% for image in images %}
             <tr>
                 <td>{{ image.id }}</td>
-                <td><img src="{{ image.thumbWebPath }}" alt="" width="50" title="{{ image.title ~ image.copyright}}"/></td>
+                <td><a href="{{ image.webPath }}" target="_blank"><img src="{{ image.thumbWebPath }}" alt="" width="50" title="{{ image.title ~ image.copyright}}"/></a></td>
                 <td>{{ image.filename }}</td>
                 <td>{{ image.extension }}</td>
                 <td>{{ image.createdAt|date("d/m/y") }}</td>

@@ -10,7 +10,7 @@
     </parameters>
 
     <services>
-        <service class="%zpb_admin_phototekbundle.service.photofactory.class%" id="zpb_admin_phototekbundle.service.photofactory">
+        <service class="%zpb_admin_phototekbundle.service.photofactory.class%" id="zpb_photofactory">
             <argument id="service_container" type="service"/>
         </service>
 

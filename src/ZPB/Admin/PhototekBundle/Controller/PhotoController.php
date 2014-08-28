@@ -23,6 +23,7 @@ namespace ZPB\Admin\PhototekBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use ZPB\Admin\CommonBundle\Controller\BaseController;
+use zpb\Admin\PhototekBundle\Form\Type\PhotoType;
 
 class PhotoController extends BaseController
 {
@@ -34,6 +35,56 @@ class PhotoController extends BaseController
 
     public function uploadAction(Request $request)
     {
-        return $this->render('ZPBAdminPhototekBundle:Photo:upload.html.twig', []);
+        $photo = $this->container->get('zpb_photofactory');
+
+        $form = $this->createForm(new PhotoType(), $photo);
+
+        $form->handleRequest($request);
+
+        if($form->isValid()){
+
+            /*$this->getManager()->persist($photo);
+            $this->getManager()->flush();*/
+
+            return $this->redirect($this->generateUrl('zpb_admin_photos_list'));
+        }
+
+        return $this->render('ZPBAdminPhototekBundle:Photo:upload.html.twig', ['form'=>$form->createView()]);
+    }
+
+    public function editAction($id, Request $request)
+    {
+        $photo = $this->getRepo('ZPBAdminPhototekBundle:Photo')->find($id);
+        if(!$photo){
+            throw $this->createNotFoundException(); //TODO photo not found
+        }
+        $form = $this->createForm(new PhotoType(), $photo);
+
+        $form->handleRequest($request);
+
+        if($form->isValid()){
+
+            /*$this->getManager()->persist($photo);
+            $this->getManager()->flush();*/
+
+            return $this->redirect($this->generateUrl('zpb_admin_photos_list'));
+        }
+        return $this->render('ZPBAdminPhototekBundle:Photo:edit.html.twig', ['form'=>$form->createView()]);
+    }
+
+    public function deleteAction($id, Request $request)
+    {
+        $token = $request->query('_token', false);
+        if(!$token || !$this->getCsrf()->isCsrfTokenValid('delete_photo', $token)){
+            throw $this->createAccessDeniedException(); //TODO
+        }
+        $photo = $this->getRepo('ZPBAdminPhototekBundle:Photo')->find($id);
+        if(!$photo){
+            throw $this->createNotFoundException(); //TODO photo not found
+        }
+        /*$this->getManager()->remove($photo);
+            $this->getManager()->flush();*/
+        return $this->redirect($this->generateUrl('zpb_admin_photos_list'));
+
     }
 } 

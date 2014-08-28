@@ -29,8 +29,11 @@ class PhotoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('filename',null, ['label'=>''])
-            ->add('save', 'submit', ['label'=>''])
+            ->add('file', 'file', ['label'=>'Fichier photo'])
+            ->add('filename',null, ['label'=>'Nom du fichier'])
+            ->add('title', 'textarea', ['label'=>'Texte de l\'attribut title'])
+            ->add('copyright', null, ['label'=>'Texte du copyright'])
+            ->add('save', 'submit', ['label'=>'Upload'])
         ;
     }
     

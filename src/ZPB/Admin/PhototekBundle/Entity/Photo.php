@@ -2,13 +2,17 @@
 
 namespace ZPB\Admin\PhototekBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Photo
  *
- * @ORM\Table()
+ * @ORM\Table(name="zpb_phototek_photos")
  * @ORM\Entity(repositoryClass="ZPB\Admin\PhototekBundle\Entity\PhotoRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Photo
 {
@@ -20,6 +24,11 @@ class Photo
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var \Symfony\Component\HttpFoundation\File\UploadedFile
+     */
+    public $file;
 
     /**
      * @var string
@@ -63,6 +72,7 @@ class Photo
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
@@ -70,6 +80,7 @@ class Photo
      * @var \DateTime
      *
      * @ORM\Column(name="updated_at", type="datetime")
+     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 
@@ -113,15 +124,94 @@ class Photo
      */
     private $category;
 
+    private $preRemoveAbsPath;
+
+    private $preRemoveThumbAbsPath;
+
+    /**
+     * Constructor
+     */
+    public function __construct($rootDir = '', $uploadDir = '', $thumbDir='')
+    {
+        $this->tags = new ArrayCollection();
+        $this->rootDir = $rootDir;
+        $this->uploadDir = $uploadDir;
+        $this->thumbDir = $thumbDir;
+    }
+
+    public function upload()
+    {
+        if(!$this->file){
+            return false;
+        }
+
+        return true;
+    }
+
+    public function getAbsPath()
+    {
+        return $this->rootDir . $this->uploadDir . $this->filename . '.' . $this->extension;
+    }
+
+    public function getWebPath()
+    {
+        return $this->uploadDir . $this->filename . '.' . $this->extension;
+    }
+
+    public function getThumbAbsPath()
+    {
+        return $this->rootDir . $this->thumbDir . $this->filename . '.' . $this->extension;
+    }
+
+    public function getThumbWebPath()
+    {
+        return $this->thumbDir . $this->filename . '.' . $this->extension;
+    }
+
+    private function sanitizeFilename($string="")
+    {
+        return preg_replace('/[^a-zA-Z0-9._-]/', '', $string);
+    }
+
+    /**
+     * @ORM\PreRemove()
+     */
+    public function preRemove()
+    {
+        $this->preRemoveAbsPath = $this->getAbsPath();
+        $this->preRemoveThumbAbsPath = $this->getThumbAbsPath();
+    }
+    /**
+     * @ORM\PostRemove()
+     */
+    public function postRemove()
+    {
+        if($this->preRemoveAbsPath != null && file_exists($this->preRemoveAbsPath)){
+            unlink($this->preRemoveAbsPath);
+        }
+        if($this->preRemoveThumbAbsPath != null && file_exists($this->preRemoveThumbAbsPath)){
+            unlink($this->preRemoveThumbAbsPath);
+        }
+    }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get filename
+     *
+     * @return string
+     */
+    public function getFilename()
+    {
+        return $this->filename;
     }
 
     /**
@@ -138,13 +228,13 @@ class Photo
     }
 
     /**
-     * Get filename
+     * Get extension
      *
-     * @return string 
+     * @return string
      */
-    public function getFilename()
+    public function getExtension()
     {
-        return $this->filename;
+        return $this->extension;
     }
 
     /**
@@ -161,13 +251,13 @@ class Photo
     }
 
     /**
-     * Get extension
+     * Get width
      *
-     * @return string 
+     * @return integer
      */
-    public function getExtension()
+    public function getWidth()
     {
-        return $this->extension;
+        return $this->width;
     }
 
     /**
@@ -184,13 +274,13 @@ class Photo
     }
 
     /**
-     * Get width
+     * Get height
      *
-     * @return integer 
+     * @return integer
      */
-    public function getWidth()
+    public function getHeight()
     {
-        return $this->width;
+        return $this->height;
     }
 
     /**
@@ -207,13 +297,13 @@ class Photo
     }
 
     /**
-     * Get height
+     * Get createdAt
      *
-     * @return integer 
+     * @return \DateTime
      */
-    public function getHeight()
+    public function getCreatedAt()
     {
-        return $this->height;
+        return $this->createdAt;
     }
 
     /**
@@ -230,13 +320,13 @@ class Photo
     }
 
     /**
-     * Get createdAt
+     * Get updatedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getCreatedAt()
+    public function getUpdatedAt()
     {
-        return $this->createdAt;
+        return $this->updatedAt;
     }
 
     /**
@@ -253,13 +343,13 @@ class Photo
     }
 
     /**
-     * Get updatedAt
+     * Get rootDir
      *
-     * @return \DateTime 
+     * @return string
      */
-    public function getUpdatedAt()
+    public function getRootDir()
     {
-        return $this->updatedAt;
+        return $this->rootDir;
     }
 
     /**
@@ -270,19 +360,19 @@ class Photo
      */
     public function setRootDir($rootDir)
     {
-        $this->rootDir = $rootDir;
+        $this->rootDir = rtrim($rootDir, ' /') . '/';
 
         return $this;
     }
 
     /**
-     * Get rootDir
+     * Get uploadDir
      *
-     * @return string 
+     * @return string
      */
-    public function getRootDir()
+    public function getUploadDir()
     {
-        return $this->rootDir;
+        return $this->uploadDir;
     }
 
     /**
@@ -293,28 +383,8 @@ class Photo
      */
     public function setUploadDir($uploadDir)
     {
-        $this->uploadDir = $uploadDir;
+        $this->uploadDir = rtrim($uploadDir, ' /');
 
-        return $this;
-    }
-
-    /**
-     * Get uploadDir
-     *
-     * @return string 
-     */
-    public function getUploadDir()
-    {
-        return $this->uploadDir;
-    }
-
-    /**
-     * @param mixed $copyright
-     * @return Photo
-     */
-    public function setCopyright($copyright)
-    {
-        $this->copyright = $copyright;
         return $this;
     }
 
@@ -324,6 +394,28 @@ class Photo
     public function getCopyright()
     {
         return $this->copyright;
+    }
+
+    /**
+     * @param mixed $copyright
+     * @return Photo
+     */
+    public function setCopyright($copyright)
+    {
+        $copyright = trim($copyright);
+        if($copyright[0] != '@'){
+            $copyright = '@ ' . $copyright;
+        }
+        $this->copyright = $copyright;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMime()
+    {
+        return $this->mime;
     }
 
     /**
@@ -339,9 +431,9 @@ class Photo
     /**
      * @return string
      */
-    public function getMime()
+    public function getThumbDir()
     {
-        return $this->mime;
+        return $this->thumbDir;
     }
 
     /**
@@ -350,16 +442,16 @@ class Photo
      */
     public function setThumbDir($thumbDir)
     {
-        $this->thumbDir = $thumbDir;
+        $this->thumbDir = rtrim($thumbDir, ' /');
         return $this;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getThumbDir()
+    public function getTitle()
     {
-        return $this->thumbDir;
+        return $this->title;
     }
 
     /**
@@ -373,12 +465,58 @@ class Photo
     }
 
     /**
-     * @return mixed
+     * Add tags
+     *
+     * @param PhotoTag $tags
+     * @return Photo
      */
-    public function getTitle()
+    public function addTag(PhotoTag $tags)
     {
-        return $this->title;
+        $this->tags[] = $tags;
+
+        return $this;
     }
 
+    /**
+     * Remove tags
+     *
+     * @param PhotoTag $tags
+     */
+    public function removeTag(PhotoTag $tags)
+    {
+        $this->tags->removeElement($tags);
+    }
 
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Get category
+     *
+     * @return PhotoCategory
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Set category
+     *
+     * @param PhotoCategory $category
+     * @return Photo
+     */
+    public function setCategory(PhotoCategory $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
 }

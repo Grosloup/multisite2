@@ -1,0 +1,43 @@
+{% import "ZPBAdminUserBundle:Macros:sidebar.html.twig" as sidebar %}
+
+{{
+    sidebar.allwrap(
+        "sidenav__left",
+        {
+            sec1: {
+                "class":"sidenav__section",
+                "title":"Photos",
+                "title_class":"sidenav__section__title",
+                "list_class": "sidenav__nav",
+                "row_type": "ul",
+                "rows": {
+                    "list_img": {type: "path", link: "zpb_admin_photos_list", text: "Liste", params:{} },
+                    "upload_img": {type: "path", link: "zpb_admin_photos_upload", text: "Upload", params:{} },
+                }
+            },
+            sec2: {
+                "class":"sidenav__section",
+                "title":"Catégories",
+                "title_class":"sidenav__section__title",
+                "list_class": "sidenav__nav",
+                "row_type": "ul",
+                "rows": {
+                    "list_cats": {type: "path", link: "zpb_admin_photos_list", text: "Liste", params:{} },
+                    "new_cat": {type: "path", link: "zpb_admin_photos_upload", text: "Nouvelle", params:{} },
+                }
+            },
+            sec3: {
+                "class":"sidenav__section",
+                "title":"Mots-clés",
+                "title_class":"sidenav__section__title",
+                "list_class": "sidenav__nav",
+                "row_type": "ul",
+                "rows": {
+                    "list_tags": {type: "path", link: "zpb_admin_photos_list", text: "Liste", params:{} },
+                    "new_tag": {type: "path", link: "zpb_admin_photos_upload", text: "Nouveau", params:{} },
+                }
+            }
+        },
+        active_mainsidebar
+    )
+}}

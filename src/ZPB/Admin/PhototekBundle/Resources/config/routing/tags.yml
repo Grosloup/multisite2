@@ -1,0 +1,25 @@
+zpb_admin_photos_tags_list:
+    path: /{page}
+    defaults: { _controller: ZPBAdminPhototekBundle:Tag:list, page: 1}
+    methods: ["GET"]
+    requirements:
+        page: \d+
+
+zpb_admin_photos_tags_new:
+    path: /nouveau
+    defaults: { _controller: ZPBAdminPhototekBundle:Tag:new }
+    methods: ["GET","POST"]
+
+zpb_admin_photos_tags_edit:
+    path: /editer/{id}
+    defaults: { _controller: ZPBAdminPhototekBundle:Tag:edit }
+    methods: ["GET","POST"]
+    requirements:
+        id: \d+
+
+zpb_admin_photos_tags_delete:
+    path: /editer/{id}
+    defaults: { _controller: ZPBAdminPhototekBundle:Tag:delete }
+    methods: ["GET"]
+    requirements:
+        id: \d+

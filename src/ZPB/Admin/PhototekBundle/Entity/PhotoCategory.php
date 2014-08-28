@@ -2,10 +2,11 @@
 
 namespace ZPB\Admin\PhototekBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * PhotoCategory
@@ -45,15 +46,32 @@ class PhotoCategory
      */
     private $photos;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->photos = new ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -70,13 +88,13 @@ class PhotoCategory
     }
 
     /**
-     * Get name
+     * Get slug
      *
-     * @return string 
+     * @return string
      */
-    public function getName()
+    public function getSlug()
     {
-        return $this->name;
+        return $this->slug;
     }
 
     /**
@@ -93,12 +111,35 @@ class PhotoCategory
     }
 
     /**
-     * Get slug
+     * Add photos
      *
-     * @return string 
+     * @param Photo $photos
+     * @return PhotoCategory
      */
-    public function getSlug()
+    public function addPhoto(Photo $photos)
     {
-        return $this->slug;
+        $this->photos[] = $photos;
+
+        return $this;
+    }
+
+    /**
+     * Remove photos
+     *
+     * @param Photo $photos
+     */
+    public function removePhoto(Photo $photos)
+    {
+        $this->photos->removeElement($photos);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
     }
 }

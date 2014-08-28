@@ -1,3 +1,19 @@
 zpb_admin_phototek_photos_routes:
-    prefix:     /phototheque
+    prefix:     /phototheque/photos
     resource: "@ZPBAdminPhototekBundle/Resources/config/routing/photos.yml"
+
+zpb_admin_phototek_categories_routes:
+    prefix:     /phototheque/categories
+    resource: "@ZPBAdminPhototekBundle/Resources/config/routing/categories.yml"
+
+zpb_admin_phototek_tags_routes:
+    prefix:     /phototheque/mots-cles
+    resource: "@ZPBAdminPhototekBundle/Resources/config/routing/tags.yml"
+
+
+
+
+
+
+
+

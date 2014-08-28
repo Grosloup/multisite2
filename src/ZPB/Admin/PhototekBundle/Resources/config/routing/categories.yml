@@ -1,0 +1,32 @@
+zpb_admin_photos_categories_list:
+    path: /{page}
+    defaults: { _controller: ZPBAdminPhototekBundle:Category:list, page: 1}
+    methods: ["GET"]
+    requirements:
+        page: \d+
+
+zpb_admin_photos_categories_new:
+    path: /nouvelle
+    defaults: { _controller: ZPBAdminPhototekBundle:Category:new }
+    methods: ["GET","POST"]
+
+zpb_admin_photos_categories_edit:
+    path: /editer/{id}
+    defaults: { _controller: ZPBAdminPhototekBundle:Category:edit }
+    methods: ["GET","POST"]
+    requirements:
+        id: \d+
+
+zpb_admin_photos_categories_delete:
+    path: /editer/{id}
+    defaults: { _controller: ZPBAdminPhototekBundle:Category:delete }
+    methods: ["GET"]
+    requirements:
+        id: \d+
+
+
+
+
+
+
+

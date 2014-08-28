@@ -12,4 +12,21 @@ use Gedmo\Sortable\Entity\Repository\SortableRepository;
  */
 class PhotoRepository extends SortableRepository
 {
+    public function findAllByGroupedPositioned()
+    {
+        $categories = $this->_em->getRepository('ZPBAdminPhototekBundle:PhotoCategory')->findAll();
+
+        if(count($categories) <1 ){
+            return null;
+        }
+
+        $photos = [];
+
+        foreach($categories as $category){
+            $photos[] = ['category'=>$category, 'photos'=>$this->getBySortableGroupsQuery(['category'=>$category->getName()])->getResult()];
+        }
+
+        return $photos;
+
+    }
 }

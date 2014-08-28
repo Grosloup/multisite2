@@ -64,6 +64,11 @@ class Photo
     private $title;
 
     /**
+     * @ORM\Column(name="legend", type="text", nullable=true)
+     */
+    private $legend;
+
+    /**
      * @ORM\Column(name="copyright", type="string", length=255, nullable=false)
      */
     private $copyright;
@@ -220,6 +225,26 @@ class Photo
     {
         return $this->id;
     }
+
+    /**
+     * @param mixed $legend
+     * @return Photo
+     */
+    public function setLegend($legend)
+    {
+        $this->legend = $legend;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLegend()
+    {
+        return $this->legend;
+    }
+
+
 
     /**
      * @param mixed $position

@@ -29,7 +29,7 @@ class PhotoController extends BaseController
 {
     public function listAction($page = 1)
     {
-        $photos = $this->getRepo('ZPBAdminPhototekBundle:Photo')->findAll(); //TODO pagination
+        $photos = $this->getRepo('ZPBAdminPhototekBundle:Photo')->findAllByGroupedPositioned(); //TODO pagination
         return $this->render('ZPBAdminPhototekBundle:Photo:list.html.twig', ['photos'=>$photos]);
     }
 

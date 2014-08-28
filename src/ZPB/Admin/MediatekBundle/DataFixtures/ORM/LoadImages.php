@@ -25,6 +25,7 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use ZPB\Admin\MediatekBundle\Entity\Image;
 
@@ -43,6 +44,19 @@ class LoadImages extends AbstractFixture implements OrderedFixtureInterface, Con
     public function load(ObjectManager $manager)
     {
         $fs = $this->container->get('filesystem');
+        $finder = new Finder();
+
+        $finder->files()->in($this->container->getParameter('zpb_mediatek_root_dir'). $this->container->getParameter('zpb_mediatek_img_uplaod_dir'))->ignoreDotFiles(true);
+        foreach($finder as $file){
+            /** @var \SplFileInfo $file */
+            $fs->remove($file->getRealPath());
+        }
+        $finder->files()->in($this->container->getParameter('zpb_mediatek_root_dir').$this->container->getParameter('zpb_mediatek_admin_img_thumbnail_dir'))->ignoreDotFiles(true);
+        foreach($finder as $file){
+            /** @var \SplFileInfo $file */
+            $fs->remove($file->getRealPath());
+        }
+
 
         $fs->copy($this->container->getParameter('zpb_mediatek_root_dir') . "fixtures/images/image1.jpg",$this->container->getParameter('zpb_mediatek_root_dir') . "fixtures/images/tmp/image1.jpg");
         $fs->copy($this->container->getParameter('zpb_mediatek_root_dir') . "fixtures/images/image2.jpg",$this->container->getParameter('zpb_mediatek_root_dir') . "fixtures/images/tmp/image2.jpg");

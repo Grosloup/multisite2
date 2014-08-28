@@ -168,23 +168,15 @@ class Image
         }
         $this->extension = $this->file->guessExtension();
         $this->mime = $this->file->getMimeType();
-
         $dest = $this->rootDir . $this->uploadDir;
-
-
         if(!$this->filename){
             $this->filename = $this->sanitizeFilename($this->file->getClientOriginalName());
-
         }
-        //$this->filename = $this->filename . "." . $this->extension;
-
         $this->file->move($dest, $this->filename . '.' . $this->extension);
-
         $size = getimagesize($this->getAbsolutePath());
         $this->width = $size[0];
         $this->height = $size[1];
         $this->file = null;
-
         return true;
     }
 

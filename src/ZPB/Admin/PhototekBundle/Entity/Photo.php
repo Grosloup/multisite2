@@ -144,7 +144,17 @@ class Photo
         if(!$this->file){
             return false;
         }
-
+        $this->extension = $this->file->guessExtension();
+        $this->mime = $this->file->getMimeType();
+        $dest = $this->rootDir . $this->uploadDir;
+        if(!$this->filename){
+            $this->filename = $this->sanitizeFilename($this->file->getClientOriginalName());
+        }
+        $this->file->move($dest, $this->filename . '.' . $this->extension);
+        $size = getimagesize($this->getAbsolutePath());
+        $this->width = $size[0];
+        $this->height = $size[1];
+        $this->file = null;
         return true;
     }
 
@@ -155,7 +165,7 @@ class Photo
 
     public function getWebPath()
     {
-        return $this->uploadDir . $this->filename . '.' . $this->extension;
+        return '/' . $this->uploadDir . $this->filename . '.' . $this->extension;
     }
 
     public function getThumbAbsPath()
@@ -165,7 +175,7 @@ class Photo
 
     public function getThumbWebPath()
     {
-        return $this->thumbDir . $this->filename . '.' . $this->extension;
+        return '/' . $this->thumbDir . $this->filename . '.' . $this->extension;
     }
 
     private function sanitizeFilename($string="")

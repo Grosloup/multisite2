@@ -3,11 +3,11 @@ zpb_admin_phototek_photos_routes:
     resource: "@ZPBAdminPhototekBundle/Resources/config/routing/photos.yml"
 
 zpb_admin_phototek_categories_routes:
-    prefix:     /phototheque/categories
+    prefix:     /phototheque/photos/categories
     resource: "@ZPBAdminPhototekBundle/Resources/config/routing/categories.yml"
 
 zpb_admin_phototek_tags_routes:
-    prefix:     /phototheque/mots-cles
+    prefix:     /phototheque/photos/mots-cles
     resource: "@ZPBAdminPhototekBundle/Resources/config/routing/tags.yml"
 
 

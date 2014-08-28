@@ -10,5 +10,9 @@ parameters:
 
     zpb_mediatek_pdf_upload_dir: "downloads/pdf/"
     zpb_mediatek_pdf_upload_thumb_dir: "downloads/pdf/thumbs/"
-    zpb_mediatek_pdf_upload_thumb_max_dim: "downloads/pdf/thumbs/"
+    zpb_mediatek_pdf_upload_thumb_max_dim: 600
 
+    zpb_phototek_root_dir: "%kernel.root_dir%/../web/"
+    zpb_phototek_upload_dir: "downloads/images/"
+    zpb_phototek_upload_thumb_dir: "downloads/images/thumbs/"
+    zpb_phototek_upload_thumb_max_dim: 600

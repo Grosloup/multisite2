@@ -1,0 +1,3 @@
+zpb_admin_phototek_photos_routes:
+    prefix:     /phototheque
+    resource: "@ZPBAdminPhototekBundle/Resources/config/routing/photos.yml"

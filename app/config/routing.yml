@@ -1,3 +1,7 @@
+zpb_admin_phototek:
+    resource: "@ZPBAdminPhototekBundle/Resources/config/routing.yml"
+    prefix:   /
+
 zpb_admin_mediatek:
     resource: "@ZPBAdminMediatekBundle/Resources/config/routing.yml"
     host: "{subdomain}admin.zooparc.com"

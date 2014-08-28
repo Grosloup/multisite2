@@ -1,0 +1,11 @@
+zpb_admin_photos_list:
+    path: /{page}
+    defaults: { _controller: ZPBAdminPhototekBundle:Photo:list, page: 1}
+    methods: ["GET"]
+    requirements:
+        page: \d+
+
+zpb_admin_photos_upload:
+    path: /upload
+    defaults: { _controller: ZPBAdminPhototekBundle:Photo:upload }
+    methods: ["GET","POST"]

@@ -4,6 +4,9 @@ AdminUsers : 15
 
 Images: 55
 
+
+Photos: 65
+
 PostCategories : 95
 PostTags : 96
 PostTargets : 97

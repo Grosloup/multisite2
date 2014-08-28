@@ -23,7 +23,7 @@ namespace ZPB\Admin\PhototekBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use ZPB\Admin\CommonBundle\Controller\BaseController;
-use zpb\Admin\PhototekBundle\Form\Type\PhotoType;
+use ZPB\Admin\PhototekBundle\Form\Type\PhotoType;
 
 class PhotoController extends BaseController
 {
@@ -35,9 +35,9 @@ class PhotoController extends BaseController
 
     public function uploadAction(Request $request)
     {
-        $photo = $this->container->get('zpb_photofactory');
+        $photo = $this->container->get('zpb_photofactory')->createPhoto();
 
-        $form = $this->createForm(new PhotoType(), $photo);
+        $form = $this->createForm(new PhotoType(), $photo, ['em'=>$this->getManager()]);
 
         $form->handleRequest($request);
 
@@ -58,7 +58,7 @@ class PhotoController extends BaseController
         if(!$photo){
             throw $this->createNotFoundException(); //TODO photo not found
         }
-        $form = $this->createForm(new PhotoType(), $photo);
+        $form = $this->createForm(new PhotoType(), $photo, ['em'=>$this->getManager()]);
 
         $form->handleRequest($request);
 
@@ -74,7 +74,7 @@ class PhotoController extends BaseController
 
     public function deleteAction($id, Request $request)
     {
-        $token = $request->query('_token', false);
+        $token = $request->query->get('_token', false);
         if(!$token || !$this->getCsrf()->isCsrfTokenValid('delete_photo', $token)){
             throw $this->createAccessDeniedException(); //TODO
         }

@@ -121,8 +121,15 @@ class Photo
     /**
      * @ORM\ManyToOne(targetEntity="ZPB\Admin\PhototekBundle\Entity\PhotoCategory", inversedBy="photos")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     * @Gedmo\SortableGroup()
      */
     private $category;
+
+    /**
+     * @Gedmo\SortablePosition()
+     * @ORM\Column(name="position", type="integer")
+     */
+    private $position;
 
     private $preRemoveAbsPath;
 
@@ -213,6 +220,25 @@ class Photo
     {
         return $this->id;
     }
+
+    /**
+     * @param mixed $position
+     * @return Photo
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
 
     /**
      * Get filename
@@ -528,5 +554,10 @@ class Photo
         $this->category = $category;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->filename;
     }
 }

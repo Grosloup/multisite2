@@ -4,7 +4,8 @@ AdminUsers : 15
 
 Images: 55
 
-
+PhotoCategories: 60
+PhotoTags: 61
 Photos: 65
 
 PostCategories : 95

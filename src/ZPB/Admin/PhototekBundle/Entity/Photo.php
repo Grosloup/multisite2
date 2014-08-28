@@ -50,6 +50,16 @@ class Photo
     private $height;
 
     /**
+     * @ORM\Column(name="title", type="text", nullable=true)
+     */
+    private $title;
+
+    /**
+     * @ORM\Column(name="copyright", type="string", length=255, nullable=false)
+     */
+    private $copyright;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
@@ -66,16 +76,42 @@ class Photo
     /**
      * @var string
      *
-     * @ORM\Column(name="rootDir", type="string", length=255)
+     * @ORM\Column(name="rootDir", type="string", length=255, nullable=false)
      */
     private $rootDir;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="uploadDir", type="string", length=255)
+     * @ORM\Column(name="uploadDir", type="string", length=255, nullable=false)
      */
     private $uploadDir;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="thumb_dir", type="string", length=255, nullable=false)
+     */
+    private $thumbDir;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mime", type="string", length=50, nullable=false)
+     */
+    private $mime;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="ZPB\Admin\PhototekBundle\Entity\PhotoTag", inversedBy="photos")
+     * @ORM\JoinTable(name="zpb_photos_tags")
+     */
+    private $tags;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="ZPB\Admin\PhototekBundle\Entity\PhotoCategory", inversedBy="photos")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     */
+    private $category;
 
 
     /**
@@ -271,4 +307,78 @@ class Photo
     {
         return $this->uploadDir;
     }
+
+    /**
+     * @param mixed $copyright
+     * @return Photo
+     */
+    public function setCopyright($copyright)
+    {
+        $this->copyright = $copyright;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyright()
+    {
+        return $this->copyright;
+    }
+
+    /**
+     * @param string $mime
+     * @return Photo
+     */
+    public function setMime($mime)
+    {
+        $this->mime = $mime;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMime()
+    {
+        return $this->mime;
+    }
+
+    /**
+     * @param string $thumbDir
+     * @return Photo
+     */
+    public function setThumbDir($thumbDir)
+    {
+        $this->thumbDir = $thumbDir;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getThumbDir()
+    {
+        return $this->thumbDir;
+    }
+
+    /**
+     * @param mixed $title
+     * @return Photo
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+
 }

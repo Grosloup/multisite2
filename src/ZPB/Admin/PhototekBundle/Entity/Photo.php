@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="ZPB\Admin\PhototekBundle\Entity\PhotoRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class Photo
+class Photo //TODO Asserts !!!
 {
     /**
      * @var integer
